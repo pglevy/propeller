@@ -50,6 +50,7 @@ import { ToggleGroup, ToggleGroupItem } from "./components/ui/toggle-group"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./components/ui/tooltip"
 import { toast } from "sonner"
 import { Terminal, ChevronRight, Check, ChevronsUpDown, Search, FileQuestion } from "lucide-react"
+import { ModeToggle } from "./components/mode-toggle"
 
 export default function KitchenSink() {
   const [date, setDate] = useState<Date | undefined>(new Date())
@@ -68,9 +69,12 @@ export default function KitchenSink() {
 
   return (
     <div className="container mx-auto p-8 space-y-12">
-      <div className="space-y-2">
-        <h1 className="text-4xl font-bold">shadcn/ui Kitchen Sink</h1>
-        <p className="text-muted-foreground">A comprehensive showcase of all installed components</p>
+      <div className="flex items-start justify-between">
+        <div className="space-y-2">
+          <h1 className="text-4xl font-bold">shadcn/ui Kitchen Sink</h1>
+          <p className="text-muted-foreground">A comprehensive showcase of all installed components</p>
+        </div>
+        <ModeToggle />
       </div>
 
       <Separator />
