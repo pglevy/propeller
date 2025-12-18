@@ -1,0 +1,109 @@
+import { Feedback, UserMessage, AssistantMessage, TaskProgress, type Task } from "./components/chat"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./components/ui/card"
+import { ModeToggle } from "./components/mode-toggle"
+
+const sampleTasks: Task[] = [
+  {
+    id: "1",
+    label: "Create loan application record type",
+    status: "completed",
+  },
+  {
+    id: "2",
+    label: "Create document record type",
+    status: "completed",
+  },
+  {
+    id: "3",
+    label: "Create brand selection interface",
+    status: "active",
+  },
+  {
+    id: "4",
+    label: "Build loan application form interface",
+    status: "todo",
+  },
+  {
+    id: "5",
+    label: "Create document upload component",
+    status: "todo",
+  },
+  {
+    id: "6",
+    label: "Implement application submission process",
+    status: "todo",
+  },
+]
+
+export default function ChatDemo() {
+  return (
+    <div className="min-h-screen p-8 mb-100">
+      <div className="max-w-4xl mx-auto space-y-8">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-4xl font-bold mb-2">Chat Components Demo</h1>
+            <p className="text-muted-foreground">
+              Interactive chat components for AI experiences
+            </p>
+          </div>
+          <ModeToggle />
+        </div>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Feedback</CardTitle>
+            <CardDescription>
+              Thumbs up/down feedback buttons with toggle behavior
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex items-center gap-4">
+              <Feedback />
+              <span className="text-sm text-muted-foreground">
+                Click to provide feedback (click again to deselect)
+              </span>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>UserMessage</CardTitle>
+            <CardDescription>
+              User message bubble with simple styling
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <UserMessage message="let's create a new component" />
+            <UserMessage message="This is a longer message to show how the component handles more text. It should wrap nicely and maintain good readability." />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>AssistantMessage</CardTitle>
+            <CardDescription>
+              Assistant message with full width, no visible container
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <AssistantMessage message="I'll create the AssistantMessage component with full width and left-aligned styling." />
+            <AssistantMessage message="This is a longer assistant response to demonstrate how the component handles more text. It spans the full width of the container and maintains a clean, readable appearance without feeling like it's in a boxed container." />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>TaskProgress</CardTitle>
+            <CardDescription>
+              Collapsible task list with progress tracking
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <TaskProgress tasks={sampleTasks} />
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  )
+}

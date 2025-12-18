@@ -1,11 +1,11 @@
-import KitchenSink from "./KitchenSink"
+import ChatDemo from "./ChatDemo"
 import { Toaster } from "sonner"
 import { ThemeProvider } from "./components/theme-provider"
 
 function App() {
   return (
     <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-      <KitchenSink />
+      <ChatDemo />
       <Toaster />
     </ThemeProvider>
   )
