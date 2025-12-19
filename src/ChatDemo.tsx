@@ -1,4 +1,4 @@
-import { Feedback, UserMessage, AssistantMessage, TaskProgress, type Task } from "./components/chat"
+import { Feedback, UserMessage, AssistantMessage, TaskProgress, type Task, AgentSteps, type AgentStep } from "./components/chat"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./components/ui/card"
 import { ModeToggle } from "./components/mode-toggle"
 
@@ -32,6 +32,60 @@ const sampleTasks: Task[] = [
     id: "6",
     label: "Implement application submission process",
     status: "todo",
+  },
+]
+
+const sampleAgentSteps: AgentStep[] = [
+  {
+    id: "1",
+    title: "Updating story status and assignment",
+    subtitle: "Updated story US-001 to In Progress, assigned to You",
+    status: "completed",
+  },
+  {
+    id: "2",
+    title: "Creating loan application record type",
+    subtitle: "LA Loan Application created",
+    status: "completed",
+  },
+  {
+    id: "3",
+    icon: "loaderCircle",
+    title: "Defining data source",
+    preview: {
+      type: "code",
+      content: `Record Type: LA Loan Application
+Data Source: jdbc/Appian
+Table name: APPLICATION`,
+    },
+    status: "active",
+  },
+  {
+    id: "4",
+    title: "Adding data fields",
+    preview: {
+      type: "code",
+      content: `Record Type:
+LA_LoanApplication_RecordType
+Fields:
+- loanNumber (Text, Primary Key)
+- referenceNumber (Text, Unique)
+- applicationDate (Date)
+- borrowerFirstName (Text)`,
+    },
+    actions: [
+      {
+        label: "View Diff",
+        variant: "link",
+        onClick: () => console.log("View Diff clicked"),
+      },
+      {
+        label: "Revert",
+        variant: "link",
+        onClick: () => console.log("Revert clicked"),
+      },
+    ],
+    status: "pending",
   },
 ]
 
@@ -101,6 +155,18 @@ export default function ChatDemo() {
           </CardHeader>
           <CardContent>
             <TaskProgress tasks={sampleTasks} />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>AgentSteps</CardTitle>
+            <CardDescription>
+              Timeline view of agent actions with status indicators, content previews, and actions
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <AgentSteps steps={sampleAgentSteps} />
           </CardContent>
         </Card>
       </div>

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ChevronDown, Square, SquareCheck, Check } from "lucide-react"
+import { ChevronDown, Square, Check } from "lucide-react"
 import {
   Collapsible,
   CollapsibleContent,
