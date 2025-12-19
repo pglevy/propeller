@@ -1,4 +1,4 @@
-import { Feedback, UserMessage, AssistantMessage, TaskProgress, type Task, AgentSteps, type AgentStep } from "./components/chat"
+import { Feedback, UserMessage, AssistantMessage, TaskProgress, type Task, AgentSteps, type AgentStep, Confirmation } from "./components/chat"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./components/ui/card"
 import { ModeToggle } from "./components/mode-toggle"
 
@@ -169,6 +169,28 @@ export default function ChatDemo() {
           </CardHeader>
           <CardContent>
             <AgentSteps steps={sampleAgentSteps} />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Confirmation</CardTitle>
+            <CardDescription>
+              Request user confirmation before proceeding with a task
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Confirmation
+              message="Next, I'll create the document record type for handling file attachments. Should I proceed with this task?"
+              primaryAction={{
+                label: "Yes, continue",
+                onClick: () => console.log("Confirmed"),
+              }}
+              secondaryAction={{
+                label: "No, skip this",
+                onClick: () => console.log("Cancelled"),
+              }}
+            />
           </CardContent>
         </Card>
       </div>
