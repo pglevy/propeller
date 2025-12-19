@@ -77,11 +77,13 @@ Fields:
       {
         label: "View Diff",
         variant: "link",
+        icon: "split",
         onClick: () => console.log("View Diff clicked"),
       },
       {
         label: "Revert",
         variant: "link",
+        icon: "rotateCcw",
         onClick: () => console.log("Revert clicked"),
       },
     ],

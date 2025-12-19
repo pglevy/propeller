@@ -1,4 +1,4 @@
-import { CheckCircle, Circle, FileText, Database, Plus, LoaderCircle } from "lucide-react"
+import { CheckCircle, Circle, FileText, Database, Plus, LoaderCircle, Split, RotateCcw } from "lucide-react"
 import {
   ItemGroup,
   Item,
@@ -17,6 +17,8 @@ const iconMap = {
   database: Database,
   plus: Plus,
   loaderCircle: LoaderCircle,
+  split: Split,
+  rotateCcw: RotateCcw,
 } as const
 
 export interface AgentStep {
@@ -30,6 +32,7 @@ export interface AgentStep {
   }
   actions?: {
     label: string
+    icon?: keyof typeof iconMap
     variant?: "default" | "ghost" | "link"
     onClick?: () => void
   }[]
@@ -50,11 +53,12 @@ export function AgentSteps({ steps, className }: AgentStepsProps) {
             key={step.id}
             size="sm"
             className={cn(
-              "border-0 py-2 px-0 relative items-start gap-3",
-              index === 0 && "pt-0"
+              "border-0 px-0 relative items-start gap-3 py-0",
+              index === 0 && "pt-0",
+              index < steps.length - 1 && "before:content-[''] before:absolute before:left-1.75 before:top-5 before:bottom-0 before:w-0.5 before:bg-border"
             )}
           >
-            <ItemMedia variant="icon" className="bg-transparent border-0 gap-0 size-4 mt-0.5">
+            <ItemMedia variant="icon" className="bg-white border-0 gap-0 size-4 mt-0.5">
               {step.status === "completed" ? (
                 <CheckCircle className="size-4 text-primary" />
               ) : step.icon ? (
@@ -64,7 +68,7 @@ export function AgentSteps({ steps, className }: AgentStepsProps) {
                     <IconComponent
                       className={cn(
                         "size-4",
-                        step.status === "active" && "text-primary",
+                        step.status === "active" && "text-muted-foreground",
                         step.status === "pending" && "text-muted-foreground"
                       )}
                     />
@@ -77,25 +81,29 @@ export function AgentSteps({ steps, className }: AgentStepsProps) {
               )}
             </ItemMedia>
 
-            <ItemContent className="gap-2 flex-1">
+            <ItemContent className="gap-1 flex-1 mb-6">
               <div className="flex items-start justify-between gap-2">
                 <ItemTitle>
                   {step.title}
                 </ItemTitle>
 
                 {step.actions && step.actions.length > 0 && (
-                  <ItemActions className="-mt-0.5">
-                    {step.actions.map((action, idx) => (
-                      <Button
-                        key={idx}
-                        variant={action.variant || "ghost"}
-                        size="sm"
-                        onClick={action.onClick}
-                        className="h-7 text-xs"
-                      >
-                        {action.label}
-                      </Button>
-                    ))}
+                  <ItemActions className="-mt-1">
+                    {step.actions.map((action, idx) => {
+                      const ActionIcon = action.icon ? iconMap[action.icon] : null
+                      return (
+                        <Button
+                          key={idx}
+                          variant={action.variant || "ghost"}
+                          size="sm"
+                          onClick={action.onClick}
+                          className="h-6 text-xs gap-1.5"
+                        >
+                          {ActionIcon && <ActionIcon className="size-3" />}
+                          {action.label}
+                        </Button>
+                      )
+                    })}
                   </ItemActions>
                 )}
               </div>
