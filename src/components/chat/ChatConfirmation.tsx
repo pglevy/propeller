@@ -1,7 +1,7 @@
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 
-interface ConfirmationProps {
+interface ChatConfirmationProps {
   message: string
   primaryAction: {
     label: string
@@ -13,11 +13,11 @@ interface ConfirmationProps {
   }
 }
 
-export function Confirmation({
+export function ChatConfirmation({
   message,
   primaryAction,
   secondaryAction,
-}: ConfirmationProps) {
+}: ChatConfirmationProps) {
   return (
     <Alert className="bg-[#EDEEFA] border-0 rounded-none px-5 py-4 border-l-4 border-primary">
       <AlertTitle className="line-clamp-none">{message}</AlertTitle>

@@ -1,6 +1,7 @@
-import { Feedback, UserMessage, AssistantMessage, TaskProgress, type Task, AgentSteps, type AgentStep, Confirmation } from "./components/chat"
+import { Link } from "wouter"
+import { ChatFeedback, UserMessage, AssistantMessage, TaskProgress, type Task, AgentSteps, type AgentStep, ChatConfirmation } from "./components/chat"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./components/ui/card"
-import { ModeToggle } from "./components/mode-toggle"
+import { ModeToggle } from "./components/shared/mode-toggle"
 
 const sampleTasks: Task[] = [
   {
@@ -95,6 +96,9 @@ export default function ChatDemo() {
   return (
     <div className="min-h-screen p-8 mb-100">
       <div className="max-w-4xl mx-auto space-y-8">
+        <Link href="/" className="text-sm text-muted-foreground hover:text-foreground">
+          ← Back to Home
+        </Link>
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold mb-2">Chat Components Demo</h1>
@@ -107,14 +111,14 @@ export default function ChatDemo() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Feedback</CardTitle>
+            <CardTitle>ChatFeedback</CardTitle>
             <CardDescription>
               Thumbs up/down feedback buttons with toggle behavior
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center gap-4">
-              <Feedback />
+              <ChatFeedback />
               <span className="text-sm text-muted-foreground">
                 Click to provide feedback (click again to deselect)
               </span>
@@ -174,13 +178,13 @@ export default function ChatDemo() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Confirmation</CardTitle>
+            <CardTitle>ChatConfirmation</CardTitle>
             <CardDescription>
               Request user confirmation before proceeding with a task
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Confirmation
+            <ChatConfirmation
               message="Next, I'll create the document record type for handling file attachments. Should I proceed with this task?"
               primaryAction={{
                 label: "Yes, continue",

@@ -2,7 +2,7 @@ import { ThumbsUp, ThumbsDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 
-export function Feedback() {
+export function ChatFeedback() {
   const [feedback, setFeedback] = useState<"up" | "down" | null>(null)
 
   return (
