@@ -1,0 +1,28 @@
+# CODEOWNERS file for Propeller Component Library
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything in the repo
+* @pglevy
+
+# Chat components - specialized components for AI chat interfaces
+/src/components/chat/ @pglevy
+
+# Core UI components - shadcn/ui based components
+/src/components/ui/ @pglevy
+
+# Shared components - theme, navigation, etc.
+/src/components/shared/ @pglevy
+
+# Package dependencies - require careful review for updates
+package.json @pglevy
+package-lock.json @pglevy
+
+# Documentation and configuration
+README.md @pglevy
+/docs/ @pglevy
+*.md @pglevy
+
+# Build and deployment configuration
+vite.config.ts @pglevy
+tsconfig.json @pglevy
+tailwind.config.js @pglevy
