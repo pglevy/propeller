@@ -48,11 +48,12 @@ import { Textarea } from "./components/ui/textarea"
 import { Toggle } from "./components/ui/toggle"
 import { ToggleGroup, ToggleGroupItem } from "./components/ui/toggle-group"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./components/ui/tooltip"
+import { Link } from "wouter"
 import { toast } from "sonner"
 import { Terminal, ChevronRight, Check, ChevronsUpDown, Search, FileQuestion } from "lucide-react"
-import { ModeToggle } from "./components/mode-toggle"
+import { ModeToggle } from "./components/shared/mode-toggle"
 
-export default function KitchenSink() {
+export default function CoreComponents() {
   const [date, setDate] = useState<Date | undefined>(new Date())
   const [progress, setProgress] = useState(60)
   const [open, setOpen] = useState(false)
@@ -69,10 +70,13 @@ export default function KitchenSink() {
 
   return (
     <div className="container mx-auto p-8 space-y-12">
+      <Link href="/" className="text-sm text-muted-foreground hover:text-foreground">
+        ← Back to Home
+      </Link>
       <div className="flex items-start justify-between">
         <div className="space-y-2">
-          <h1 className="text-4xl font-bold">shadcn/ui Kitchen Sink</h1>
-          <p className="text-muted-foreground">A comprehensive showcase of all installed components</p>
+          <h1 className="text-4xl font-bold">Core Components</h1>
+          <p className="text-muted-foreground">A comprehensive showcase of all shadcn/ui components</p>
         </div>
         <ModeToggle />
       </div>

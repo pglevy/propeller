@@ -70,8 +70,8 @@
   --secondary-foreground: oklch(0.145 0 0);
   --muted: oklch(0.94 0.005 280); /* Gray 100 */
   --muted-foreground: oklch(0.50 0.015 280); /* Gray 3 (#6C6C75) */
-  --accent: oklch(0.55 0.26 290); /* Purple 700 (#962FEA) */
-  --accent-foreground: oklch(1 0 0);
+  --accent: oklch(0.9475 0.0067 286.27); /* Gray 1 (#EDEDF2) */
+  --accent-foreground: oklch(0.2520 0.0000 0); /* Gray 5 (#222222) */
   --destructive: oklch(0.52 0.24 25); /* Red 500 (#DE0037) */
   --border: oklch(0.90 0.005 280); /* Gray 200 (#E0E0E0) */
   --input: oklch(0.90 0.005 280);
