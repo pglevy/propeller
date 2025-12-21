@@ -50,7 +50,11 @@ export function TaskProgress({
                 <span className="text-sm shrink-0">
                   <span className="font-medium">{completedCount}</span> / {totalCount}
                 </span>
-                <Progress value={progressValue} className="flex-1" />
+                <Progress
+                  value={progressValue}
+                  className="flex-1"
+                  aria-label={`Task progress: ${completedCount} of ${totalCount} completed`}
+                />
               </div>
             </div>
           </div>
