@@ -12,7 +12,7 @@ export function ChatFeedback() {
         size="icon-sm"
         onClick={() => setFeedback(feedback === "up" ? null : "up")}
         aria-label="Helpful"
-        className={feedback === "up" ? "bg-[#E3FBDF] hover:bg-[#E3FBDF]" : "text-muted-foreground"}
+        className={feedback === "up" ? "bg-positive hover:bg-positive dark:hover:bg-positive" : "text-muted-foreground"}
       >
         <ThumbsUp />
       </Button>
@@ -21,7 +21,7 @@ export function ChatFeedback() {
         size="icon-sm"
         onClick={() => setFeedback(feedback === "down" ? null : "down")}
         aria-label="Not helpful"
-        className={feedback === "down" ? "bg-[#FED7DE] hover:bg-[#FED7DE]" : "text-muted-foreground"}
+        className={feedback === "down" ? "bg-negative hover:bg-negative dark:hover:bg-negative" : "text-muted-foreground"}
       >
         <ThumbsDown />
       </Button>

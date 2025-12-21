@@ -58,7 +58,7 @@ export function AgentSteps({ steps, className }: AgentStepsProps) {
               index < steps.length - 1 && "before:content-[''] before:absolute before:left-1.75 before:top-5 before:bottom-0 before:w-0.5 before:bg-border"
             )}
           >
-            <ItemMedia variant="icon" className="bg-white border-0 gap-0 size-4 mt-0.5">
+            <ItemMedia variant="icon" className="bg-background border-0 gap-0 size-4 mt-0.5">
               {step.status === "completed" ? (
                 <CheckCircle className="size-4 text-primary" />
               ) : step.icon ? (

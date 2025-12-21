@@ -37,6 +37,14 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-positive: var(--positive);
+  --color-positive-foreground: var(--positive-foreground);
+  --color-negative: var(--negative);
+  --color-negative-foreground: var(--negative-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -155,6 +163,14 @@
   --accent: var(--aurora-gray-1);
   --accent-foreground: var(--aurora-gray-5);
   --destructive: var(--aurora-red-3);
+  --positive: var(--aurora-green-1);
+  --positive-foreground: var(--aurora-green-4);
+  --negative: var(--aurora-red-1);
+  --negative-foreground: var(--aurora-red-4);
+  --warning: var(--aurora-yellow-1);
+  --warning-foreground: var(--aurora-yellow-4);
+  --info: var(--aurora-blue-1);
+  --info-foreground: var(--aurora-blue-4);
   --border: var(--aurora-gray-2);
   --input: var(--aurora-gray-2);
   --ring: var(--aurora-blue-3);
@@ -187,9 +203,17 @@
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.25 0.005 280);
   --muted-foreground: var(--aurora-gray-4);
-  --accent: var(--aurora-purple-3); /* Purple - good contrast in dark mode */
-  --accent-foreground: oklch(1 0 0);
-  --destructive: var(--aurora-red-2); /* Lighter red for dark mode visibility */
+  --accent: oklch(0.371 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: var(--aurora-red-3); /* Lighter red for dark mode visibility */
+  --positive: var(--aurora-green-4);
+  --positive-foreground: var(--aurora-green-1);
+  --negative: var(--aurora-red-4);
+  --negative-foreground: var(--aurora-red-1);
+  --warning: var(--aurora-yellow-4);
+  --warning-foreground: var(--aurora-yellow-1);
+  --info: var(--aurora-blue-4);
+  --info-foreground: var(--aurora-blue-1);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.55 0.28 265); /* Blue for focus */
