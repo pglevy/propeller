@@ -1,0 +1,9 @@
+#!/bin/bash
+# Skill: Sync Aurora colors to Propeller
+# Usage: /aurora-colors [sync|convert HEX]
+# Description: Converts colors from Aurora's colors.yml to OKLCH format and syncs to Propeller
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Run the Node.js script
+node "$SCRIPT_DIR/aurora-colors.mjs" "$@"
