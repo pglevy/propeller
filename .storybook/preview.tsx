@@ -2,6 +2,7 @@ import type { Preview } from '@storybook/react-vite'
 import type { ReactRenderer } from '@storybook/react'
 import { withThemeByClassName } from '@storybook/addon-themes'
 import '../src/index.css'
+import React from 'react'
 
 const preview: Preview = {
   parameters: {
@@ -20,7 +21,7 @@ const preview: Preview = {
     },
 
     backgrounds: {
-      disable: true, // Disable default backgrounds since we're using theme
+      disable: true,
     },
   },
 
@@ -32,6 +33,11 @@ const preview: Preview = {
       },
       defaultTheme: 'light',
     }),
+    (Story) => (
+      <div className="bg-background text-foreground p-4">
+        <Story />
+      </div>
+    ),
   ],
 };
 
