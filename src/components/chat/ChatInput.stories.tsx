@@ -6,7 +6,7 @@ const meta = {
   title: 'Chat/ChatInput',
   component: ChatInput,
   parameters: {
-    layout: 'centered',
+    layout: 'padded',
   },
   tags: ['autodocs'],
   args: {

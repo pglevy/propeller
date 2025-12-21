@@ -79,6 +79,7 @@ export function ChatInput({
         size="icon"
         variant="ghost"
         className="shrink-0"
+        aria-label="Send message"
       >
         <Send />
       </Button>

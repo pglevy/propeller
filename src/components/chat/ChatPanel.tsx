@@ -55,7 +55,7 @@ export function ChatPanel({
             <h2 className="text-lg font-semibold">{title}</h2>
           )}
           {headerActions && headerActions.length > 0 && (
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1" role="group" aria-label="Header actions">
               {headerActions.map((action, index) => (
                 <Button
                   key={index}
@@ -73,7 +73,12 @@ export function ChatPanel({
       )}
 
       {/* Content Area */}
-      <div className="flex-1 overflow-y-auto">
+      <div
+        className="flex-1 overflow-y-auto"
+        tabIndex={0}
+        role="region"
+        aria-label="Chat messages"
+      >
         <div className="px-4 py-4">
           {children}
         </div>

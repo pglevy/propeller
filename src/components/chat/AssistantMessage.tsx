@@ -6,7 +6,7 @@ interface AssistantMessageProps {
 
 export function AssistantMessage({ message }: AssistantMessageProps) {
   return (
-    <Item variant="default" size="sm" className="w-full px-0">
+    <Item variant="default" size="sm" className="w-full px-0" role="article">
       <ItemContent>
         <p className="text-sm">{message}</p>
       </ItemContent>
