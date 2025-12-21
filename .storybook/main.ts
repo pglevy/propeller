@@ -13,6 +13,13 @@ const config: StorybookConfig = {
     "@storybook/addon-onboarding",
     "@storybook/addon-themes"
   ],
-  "framework": "@storybook/react-vite"
+  "framework": "@storybook/react-vite",
+  async viteFinal(config) {
+    // Set base path for GitHub Pages deployment
+    if (process.env.NODE_ENV === 'production') {
+      config.base = '/propeller/docs/';
+    }
+    return config;
+  }
 };
 export default config;
