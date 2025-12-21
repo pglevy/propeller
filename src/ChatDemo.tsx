@@ -119,10 +119,10 @@ export default function ChatDemo() {
           <CardContent className="space-y-4">
             <div className="flex items-center gap-4">
               <ChatFeedback />
-              <span className="text-sm text-muted-foreground">
-                Click to provide feedback (click again to deselect)
-              </span>
             </div>
+            <p className="text-sm text-muted-foreground">
+              Click to provide feedback (click again to deselect)
+            </p>
           </CardContent>
         </Card>
 
