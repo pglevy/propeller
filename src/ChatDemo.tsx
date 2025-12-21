@@ -1,7 +1,8 @@
 import { Link } from "wouter"
-import { ChatFeedback, UserMessage, AssistantMessage, TaskProgress, type Task, AgentSteps, type AgentStep, ChatConfirmation } from "./components/chat"
+import { ChatFeedback, UserMessage, AssistantMessage, TaskProgress, type Task, AgentSteps, type AgentStep, ChatConfirmation, ChatInput, ChatPanel } from "./components/chat"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./components/ui/card"
 import { ModeToggle } from "./components/shared/mode-toggle"
+import { Settings, MoreVertical } from "lucide-react"
 
 const sampleTasks: Task[] = [
   {
@@ -119,10 +120,10 @@ export default function ChatDemo() {
           <CardContent className="space-y-4">
             <div className="flex items-center gap-4">
               <ChatFeedback />
-              <span className="text-sm text-muted-foreground">
-                Click to provide feedback (click again to deselect)
-              </span>
             </div>
+            <p className="text-sm text-muted-foreground">
+              Click to provide feedback (click again to deselect)
+            </p>
           </CardContent>
         </Card>
 
@@ -195,6 +196,70 @@ export default function ChatDemo() {
                 onClick: () => console.log("Cancelled"),
               }}
             />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>ChatInput</CardTitle>
+            <CardDescription>
+              Input field for sending chat messages with Enter key support
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ChatInput
+              placeholder="Type a message..."
+              onSubmit={(message) => console.log("Submitted:", message)}
+            />
+          </CardContent>
+        </Card>
+
+        <Card className="bg-secondary">
+          <CardHeader>
+            <CardTitle>ChatPanel - Full Experience</CardTitle>
+            <CardDescription>
+              Complete chat panel with fixed header/footer and scrolling content
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="p-0">
+            <ChatPanel
+              title="AI Assistant"
+              headerActions={[
+                {
+                  icon: <Settings />,
+                  label: "Settings",
+                  onClick: () => console.log("Settings clicked"),
+                },
+                {
+                  icon: <MoreVertical />,
+                  label: "More options",
+                  onClick: () => console.log("More options clicked"),
+                },
+              ]}
+              footer={<ChatInput placeholder="Ask me anything..." />}
+              height="600px"
+            >
+              <div className="space-y-6">
+                <UserMessage message="Create a loan application system with document management" />
+
+                <div className="space-y-4">
+                  <AssistantMessage message="I'll help you create a loan application system with document management. Let me break this down into tasks." />
+                  <TaskProgress tasks={sampleTasks} />
+                </div>
+
+                <UserMessage message="Great! Let's start with the first task." />
+
+                <div className="space-y-4">
+                  <AssistantMessage message="I'll create the loan application record type now." />
+                  <AgentSteps steps={sampleAgentSteps} />
+                </div>
+
+                <div className="space-y-4">
+                  <AssistantMessage message="I've started creating the loan application record type. The data source is configured and I'm defining the fields. Does this look correct?" />
+                  <ChatFeedback />
+                </div>
+              </div>
+            </ChatPanel>
           </CardContent>
         </Card>
       </div>

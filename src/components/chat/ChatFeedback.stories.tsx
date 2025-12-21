@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { userEvent, within, expect } from 'storybook/test'
+import { userEvent, within, expect, fn } from 'storybook/test'
 import { ChatFeedback } from './ChatFeedback'
 
 const meta = {
@@ -9,6 +9,9 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
+  args: {
+    onFeedbackSubmit: fn(),
+  },
 } satisfies Meta<typeof ChatFeedback>
 
 export default meta
@@ -42,7 +45,7 @@ export const ThumbsUpSelected: Story = {
     await userEvent.click(thumbsUpButton)
 
     // Verify the button has the selected state (green background)
-    await expect(thumbsUpButton).toHaveClass('bg-[#E3FBDF]')
+    await expect(thumbsUpButton).toHaveClass('bg-positive')
   },
 }
 
@@ -61,7 +64,7 @@ export const ThumbsDownSelected: Story = {
     await userEvent.click(thumbsDownButton)
 
     // Verify the button has the selected state (pink background)
-    await expect(thumbsDownButton).toHaveClass('bg-[#FED7DE]')
+    await expect(thumbsDownButton).toHaveClass('bg-negative')
   },
 }
 
@@ -76,11 +79,11 @@ export const ToggleBehavior: Story = {
 
     // Click to select
     await userEvent.click(thumbsUpButton)
-    await expect(thumbsUpButton).toHaveClass('bg-[#E3FBDF]')
+    await expect(thumbsUpButton).toHaveClass('bg-positive')
 
     // Click again to deselect
     await userEvent.click(thumbsUpButton)
-    await expect(thumbsUpButton).not.toHaveClass('bg-[#E3FBDF]')
+    await expect(thumbsUpButton).not.toHaveClass('bg-positive')
   },
 }
 
@@ -96,11 +99,79 @@ export const SwitchBetweenOptions: Story = {
 
     // Select thumbs up
     await userEvent.click(thumbsUpButton)
-    await expect(thumbsUpButton).toHaveClass('bg-[#E3FBDF]')
+    await expect(thumbsUpButton).toHaveClass('bg-positive')
 
     // Switch to thumbs down
     await userEvent.click(thumbsDownButton)
-    await expect(thumbsDownButton).toHaveClass('bg-[#FED7DE]')
-    await expect(thumbsUpButton).not.toHaveClass('bg-[#E3FBDF]')
+    await expect(thumbsDownButton).toHaveClass('bg-negative')
+    await expect(thumbsUpButton).not.toHaveClass('bg-positive')
+  },
+}
+
+/**
+ * This story shows the "Add details" action link that appears after feedback is given.
+ */
+export const WithAddDetailsLink: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    const thumbsUpButton = canvas.getByLabelText('Helpful')
+
+    // Click thumbs up
+    await userEvent.click(thumbsUpButton)
+
+    // Verify the "Add details" link appears
+    const addDetailsButton = canvas.getByText('Add details')
+    await expect(addDetailsButton).toBeInTheDocument()
+  },
+}
+
+/**
+ * This story demonstrates the feedback dialog that opens when "Add details" is clicked.
+ */
+export const WithFeedbackDialog: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    const thumbsUpButton = canvas.getByLabelText('Helpful')
+
+    // Click thumbs up
+    await userEvent.click(thumbsUpButton)
+
+    // Click "Add details"
+    const addDetailsButton = canvas.getByText('Add details')
+    await userEvent.click(addDetailsButton)
+
+    // Verify the dialog opens with correct title (dialog is in a portal, so search in document)
+    const dialog = await within(document.body).findByRole('dialog')
+    await expect(dialog).toBeInTheDocument()
+
+    const dialogTitle = within(dialog).getByText('Feedback')
+    await expect(dialogTitle).toBeInTheDocument()
+
+    // Verify the question text
+    const questionText = within(dialog).getByText('What was good about this response?')
+    await expect(questionText).toBeInTheDocument()
+  },
+}
+
+/**
+ * This story shows that the details option can be disabled.
+ */
+export const WithDetailsDisabled: Story = {
+  args: {
+    showDetailsOption: false,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    const thumbsUpButton = canvas.getByLabelText('Helpful')
+
+    // Click thumbs up
+    await userEvent.click(thumbsUpButton)
+
+    // Verify the "Add details" link does NOT appear
+    const addDetailsButton = canvas.queryByText('Add details')
+    await expect(addDetailsButton).not.toBeInTheDocument()
   },
 }
