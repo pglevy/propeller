@@ -93,12 +93,19 @@ function parseColorsYaml(yamlContent) {
 }
 
 async function syncColors(command = 'sync') {
-  const auroraPath = '/Users/philip.levy/Documents/GitHub/aurora/data/colors.yml'
+  const auroraUrl = 'https://raw.githubusercontent.com/appian-design/aurora/main/data/colors.yml'
   const propellerCssPath = join(__dirname, '../../src/index.css')
 
   try {
-    // Read Aurora colors.yml
-    const yamlContent = await readFile(auroraPath, 'utf-8')
+    // Fetch Aurora colors.yml from GitHub
+    console.log('📡 Fetching Aurora colors from GitHub...')
+    const response = await fetch(auroraUrl)
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch colors.yml: ${response.status} ${response.statusText}`)
+    }
+
+    const yamlContent = await response.text()
     const data = parseColorsYaml(yamlContent)
 
     if (!data || !data.colors) {
