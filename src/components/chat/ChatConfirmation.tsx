@@ -19,17 +19,17 @@ export function ChatConfirmation({
   secondaryAction,
 }: ChatConfirmationProps) {
   return (
-    <Alert className="bg-[#EDEEFA] border-0 rounded-none px-5 py-4 border-l-4 border-primary">
+    <Alert className="bg-info border-0 rounded-none px-5 py-4 border-l-4 border-primary">
       <AlertTitle className="line-clamp-none">{message}</AlertTitle>
       <AlertDescription className="mt-2">
         <div className="flex gap-2">
-          <Button size="sm" variant="outline" className="border-primary text-foreground rounded-full" onClick={primaryAction.onClick}>
+          <Button size="sm" variant="default" className="rounded-full" onClick={primaryAction.onClick}>
             {primaryAction.label}
           </Button>
           {secondaryAction && (
             <Button
               size="sm"
-              variant="outline"
+              variant="secondary"
               className="rounded-full"
               onClick={secondaryAction.onClick}
             >

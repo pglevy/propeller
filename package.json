@@ -8,6 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:color": "vitest --project=unit tests/color-palette-enforcement.test.ts --run",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
