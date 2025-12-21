@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useLayoutEffect } from "react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./components/ui/accordion"
 import { Alert, AlertDescription, AlertTitle } from "./components/ui/alert"
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "./components/ui/alert-dialog"
@@ -67,6 +67,27 @@ export default function CoreComponents() {
     { value: "remix", label: "Remix" },
     { value: "astro", label: "Astro" },
   ]
+
+  // Force scroll to top and prevent Command component auto-scroll
+  useLayoutEffect(() => {
+    // Temporarily prevent scrollIntoView during mount to avoid auto-scroll
+    const originalScrollIntoView = Element.prototype.scrollIntoView
+    Element.prototype.scrollIntoView = function() {
+      // Ignore scrollIntoView calls during initial render
+    }
+
+    window.scrollTo(0, 0)
+
+    // Restore normal behavior after components mount
+    const timer = setTimeout(() => {
+      Element.prototype.scrollIntoView = originalScrollIntoView
+    }, 100)
+
+    return () => {
+      clearTimeout(timer)
+      Element.prototype.scrollIntoView = originalScrollIntoView
+    }
+  }, [])
 
   return (
     <div className="container mx-auto p-8 space-y-12">
