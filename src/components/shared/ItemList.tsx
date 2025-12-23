@@ -3,7 +3,6 @@ import { ChevronDown } from "lucide-react"
 import {
   ItemGroup,
   Item,
-  ItemMedia,
   ItemContent,
   ItemTitle,
   ItemDescription,
@@ -222,7 +221,7 @@ export function ItemList({
     // Outline: individual items with borders and spacing between them
     return (
       <ItemGroup className={cn("bg-background gap-2", className)}>
-        {items.map((item, index) => {
+        {items.map((item) => {
           const hasCollapsibleContent = Boolean(item.collapsibleContent)
           const isOpen = openItems.has(item.id)
 
