@@ -355,6 +355,46 @@ Storybook includes `@storybook/addon-a11y` for automated accessibility testing.
 - DOM structure is as flat as possible with explicit backgrounds
 - The issue is due to complex layering (not a real problem)
 
+### Development Workflow
+
+Before testing stories in Storybook, always follow this workflow to catch build errors early:
+
+**Checklist** (in order):
+1. **Write component** with all exports and type definitions
+2. **Write stories** file with examples and interaction tests
+3. **Run `npm run build`** to catch TypeScript, JSX, and syntax errors
+4. **Run `npm run lint`** to catch style and import issues
+5. **Test in Storybook** (`npm run storybook`)
+
+**Common build errors to prevent**:
+
+```tsx
+// ❌ JSX syntax in JSDoc comments confuses parser
+/**
+ * Example usage:
+ * <Component>
+ *   {/* child content */}
+ * </Component>
+ */
+
+// ✅ Use plain text in JSDoc instead
+/**
+ * Example usage:
+ * Pass JSX content as children
+ */
+```
+
+```tsx
+// ❌ Unused imports cause lint failures
+import { ComponentA, ComponentB } from './component'
+// but only ComponentA is used
+
+// ✅ Remove unused imports
+import { ComponentA } from './component'
+```
+
+**Why build first?** TypeScript and JSX errors surface during the build phase, not Storybook development. Testing in Storybook before building can mask issues that only appear later. Catching them early prevents module loading errors like `Failed to fetch dynamically imported module`.
+
 ## Code Quality Standards
 
 ### TypeScript
