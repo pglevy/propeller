@@ -15,9 +15,11 @@ import {
   EnhancedTabsList,
   EnhancedTabsTrigger,
   TabIcon,
+  TabLabel,
   TabCount,
   TabsContent,
 } from "./EnhancedTabs"
+import { ResponsiveEnhancedTabs } from "./ResponsiveEnhancedTabs"
 
 const meta = {
   title: "Shared/EnhancedTabs",
@@ -515,5 +517,148 @@ export const ManyTabs: Story = {
         </TabsContent>
       ))}
     </EnhancedTabs>
+  ),
+}
+
+// RESPONSIVE TABS STORIES
+
+export const ResponsivePrimary: Story = {
+  args: {
+    variant: "primary",
+    defaultValue: "home",
+  },
+  render: (args) => (
+    <div className="w-full">
+      <p className="text-xs text-muted-foreground mb-2">Resize the container to see labels hide when space is tight</p>
+      <ResponsiveEnhancedTabs {...args}>
+        <EnhancedTabsList>
+          <EnhancedTabsTrigger value="home">
+            <TabIcon icon={Home} />
+            <TabLabel>Home</TabLabel>
+            <TabCount count={5} />
+          </EnhancedTabsTrigger>
+          <EnhancedTabsTrigger value="messages">
+            <TabIcon icon={MessageSquare} />
+            <TabLabel>Messages</TabLabel>
+            <TabCount count={12} />
+          </EnhancedTabsTrigger>
+          <EnhancedTabsTrigger value="notifications">
+            <TabIcon icon={Bell} />
+            <TabLabel>Notifications</TabLabel>
+            <TabCount count={3} />
+          </EnhancedTabsTrigger>
+          <EnhancedTabsTrigger value="settings">
+            <TabIcon icon={Settings} />
+            <TabLabel>Settings</TabLabel>
+          </EnhancedTabsTrigger>
+        </EnhancedTabsList>
+        <TabsContent value="home" className="p-4">
+          <p className="text-sm text-muted-foreground">Home content</p>
+        </TabsContent>
+        <TabsContent value="messages" className="p-4">
+          <p className="text-sm text-muted-foreground">Messages content</p>
+        </TabsContent>
+        <TabsContent value="notifications" className="p-4">
+          <p className="text-sm text-muted-foreground">Notifications content</p>
+        </TabsContent>
+        <TabsContent value="settings" className="p-4">
+          <p className="text-sm text-muted-foreground">Settings content</p>
+        </TabsContent>
+      </ResponsiveEnhancedTabs>
+    </div>
+  ),
+}
+
+export const ResponsiveSecondary: Story = {
+  args: {
+    variant: "secondary",
+    defaultValue: "home",
+  },
+  render: (args) => (
+    <div className="w-full">
+      <p className="text-xs text-muted-foreground mb-2">Resize the container to see labels hide when space is tight</p>
+      <ResponsiveEnhancedTabs {...args}>
+        <EnhancedTabsList>
+          <EnhancedTabsTrigger value="home">
+            <TabIcon icon={Home} />
+            <TabLabel>Home</TabLabel>
+            <TabCount count={5} />
+          </EnhancedTabsTrigger>
+          <EnhancedTabsTrigger value="messages">
+            <TabIcon icon={MessageSquare} />
+            <TabLabel>Messages</TabLabel>
+            <TabCount count={12} />
+          </EnhancedTabsTrigger>
+          <EnhancedTabsTrigger value="notifications">
+            <TabIcon icon={Bell} />
+            <TabLabel>Notifications</TabLabel>
+            <TabCount count={3} />
+          </EnhancedTabsTrigger>
+          <EnhancedTabsTrigger value="settings">
+            <TabIcon icon={Settings} />
+            <TabLabel>Settings</TabLabel>
+          </EnhancedTabsTrigger>
+        </EnhancedTabsList>
+        <TabsContent value="home" className="p-4">
+          <p className="text-sm text-muted-foreground">Home content</p>
+        </TabsContent>
+        <TabsContent value="messages" className="p-4">
+          <p className="text-sm text-muted-foreground">Messages content</p>
+        </TabsContent>
+        <TabsContent value="notifications" className="p-4">
+          <p className="text-sm text-muted-foreground">Notifications content</p>
+        </TabsContent>
+        <TabsContent value="settings" className="p-4">
+          <p className="text-sm text-muted-foreground">Settings content</p>
+        </TabsContent>
+      </ResponsiveEnhancedTabs>
+    </div>
+  ),
+}
+
+export const ResponsiveCustomThreshold: Story = {
+  args: {
+    variant: "primary",
+    defaultValue: "home",
+  },
+  render: (args) => (
+    <div className="w-full">
+      <p className="text-xs text-muted-foreground mb-2">Custom threshold: 600px. Labels hide sooner than default (480px)</p>
+      <ResponsiveEnhancedTabs {...args} iconOnlyThreshold={600}>
+        <EnhancedTabsList>
+          <EnhancedTabsTrigger value="home">
+            <TabIcon icon={Home} />
+            <TabLabel>Home</TabLabel>
+            <TabCount count={5} />
+          </EnhancedTabsTrigger>
+          <EnhancedTabsTrigger value="messages">
+            <TabIcon icon={MessageSquare} />
+            <TabLabel>Messages</TabLabel>
+            <TabCount count={12} />
+          </EnhancedTabsTrigger>
+          <EnhancedTabsTrigger value="notifications">
+            <TabIcon icon={Bell} />
+            <TabLabel>Notifications</TabLabel>
+            <TabCount count={3} />
+          </EnhancedTabsTrigger>
+          <EnhancedTabsTrigger value="settings">
+            <TabIcon icon={Settings} />
+            <TabLabel>Settings</TabLabel>
+          </EnhancedTabsTrigger>
+        </EnhancedTabsList>
+        <TabsContent value="home" className="p-4">
+          <p className="text-sm text-muted-foreground">Home content</p>
+        </TabsContent>
+        <TabsContent value="messages" className="p-4">
+          <p className="text-sm text-muted-foreground">Messages content</p>
+        </TabsContent>
+        <TabsContent value="notifications" className="p-4">
+          <p className="text-sm text-muted-foreground">Notifications content</p>
+        </TabsContent>
+        <TabsContent value="settings" className="p-4">
+          <p className="text-sm text-muted-foreground">Settings content</p>
+        </TabsContent>
+      </ResponsiveEnhancedTabs>
+    </div>
   ),
 }

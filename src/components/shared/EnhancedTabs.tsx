@@ -11,11 +11,13 @@ type TabsVariant = "primary" | "secondary"
 
 interface TabsContextValue {
   variant: TabsVariant
+  showLabels?: boolean
 }
 
 interface EnhancedTabsProps
   extends React.ComponentProps<typeof TabsPrimitive.Root> {
   variant?: TabsVariant
+  showLabels?: boolean
   className?: string
 }
 
@@ -74,12 +76,13 @@ const enhancedTabsTriggerVariants = cva(
 // Components
 function EnhancedTabs({
   variant = "primary",
+  showLabels = true,
   className,
   children,
   ...props
 }: EnhancedTabsProps) {
   return (
-    <TabsContext.Provider value={{ variant }}>
+    <TabsContext.Provider value={{ variant, showLabels }}>
       <TabsPrimitive.Root
         data-slot="enhanced-tabs"
         data-variant={variant}
@@ -169,6 +172,27 @@ function TabCount({
   )
 }
 
+function TabLabel({
+  children,
+  className,
+}: {
+  children: React.ReactNode
+  className?: string
+}) {
+  const { showLabels } = React.useContext(TabsContext)
+
+  if (!showLabels) return null
+
+  return (
+    <span
+      data-slot="tab-label"
+      className={className}
+    >
+      {children}
+    </span>
+  )
+}
+
 // Re-export TabsContent from base
 const TabsContent = TabsPrimitive.Content
 
@@ -177,6 +201,7 @@ export {
   EnhancedTabsList,
   EnhancedTabsTrigger,
   TabIcon,
+  TabLabel,
   TabCount,
   TabsContent,
 }
