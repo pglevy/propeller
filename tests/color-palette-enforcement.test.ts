@@ -60,14 +60,6 @@ const FORBIDDEN_PATTERNS = [
   },
 ]
 
-// Specific exceptions that are allowed
-const ALLOWED_EXCEPTIONS = [
-  'bg-white', // Only in specific cases - we'll flag but can override
-  'bg-black',
-  'text-white',
-  'text-black',
-]
-
 // Files to skip (generated files, tests, etc.)
 const SKIP_FILES = [
   'node_modules',
