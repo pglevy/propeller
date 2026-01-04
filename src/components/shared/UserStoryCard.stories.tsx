@@ -25,8 +25,8 @@ export const Default: Story = {
   args: {
     storyId: "STS-2211",
     title: "Link a Bank Account",
-    status: "Waiting to start…",
-    completedTasks: 1,
+    status: "Not Started",
+    completedTasks: 0,
     totalTasks: 4,
     assignee: {
       initials: "LT",

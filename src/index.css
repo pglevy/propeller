@@ -4,7 +4,14 @@
 
 @variant dark (.dark &);
 
+@utility shadow-pretty-good {
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.06);
+}
+
 @theme inline {
+  /* Custom styles */
+  --rounded-xs: 2px;
+
   /* Custom text sizes from Aurora/SAIL */
   --text-3xl: 1.75rem; /* 28px - SAIL LARGE_PLUS */
 
