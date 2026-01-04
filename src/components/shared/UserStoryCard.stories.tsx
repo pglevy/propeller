@@ -9,6 +9,13 @@ const meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
+  decorators: [
+    (Story) => (
+      <div className="w-lg">
+        <Story />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof UserStoryCard>
 
 export default meta
@@ -24,7 +31,7 @@ export const Default: Story = {
     assignee: {
       initials: "LT",
     },
-    category: "Onboarding & Setup",
+    category: "Onboarding & Setup"
   },
 }
 
