@@ -26,34 +26,8 @@ import type { ItemListProps } from "./item-list-types"
  * titles, subtitles, and actions. Establishes the canonical icon set using
  * Aurora Design System color pairings for product-wide brand consistency.
  *
- * @example
- * // Basic list with canonical object types
- * <ItemList
- *   items={[
- *     {
- *       id: "1",
- *       objectType: "document",
- *       title: "User Manual",
- *       subtitle: "Updated 2 hours ago"
- *     }
- *   ]}
- * />
- *
- * @example
- * // Collapsible list with badges and actions
- * <ItemList
- *   collapsible
- *   items={[
- *     {
- *       id: "1",
- *       objectType: "recordType",
- *       title: "Loan Application",
- *       subtitle: <Badge>In Progress</Badge>,
- *       actions: <Button>Start</Button>,
- *       collapsibleContent: <div>Details here...</div>
- *     }
- *   ]}
- * />
+ * See Storybook for usage examples including basic lists, collapsible items,
+ * badges, actions, and the canonical icon showcase.
  */
 export function ItemList({
   items,
