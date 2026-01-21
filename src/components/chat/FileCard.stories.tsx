@@ -117,6 +117,19 @@ export const LongFileName: Story = {
     fileName: 'this-is-a-very-long-filename-that-should-be-truncated-in-the-display.pdf',
     fileSize: 1024 * 500, // 500 KB
     showRemove: true,
+    maxWidth: "320px",
+  },
+}
+
+/**
+ * Long filename without remove button
+ */
+export const LongFileNameReadOnly: Story = {
+  args: {
+    fileName: 'another-extremely-long-filename-for-testing-truncation-behavior.tsx',
+    fileSize: 1024 * 45,
+    showRemove: false,
+    maxWidth: "280px",
   },
 }
 

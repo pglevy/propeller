@@ -25,6 +25,11 @@ export interface FileCardProps extends React.ComponentProps<"div"> {
    * Optional file type override (if not provided, will be inferred from fileName)
    */
   fileType?: string
+  /**
+   * Maximum width of the component (CSS value)
+   * @default "320px"
+   */
+  maxWidth?: string
 }
 
 /**
@@ -89,6 +94,7 @@ export function FileCard({
   showRemove = false,
   onRemove,
   fileType,
+  maxWidth = "320px",
   className,
   ...props
 }: FileCardProps) {
@@ -103,6 +109,7 @@ export function FileCard({
         showRemove ? "pl-3 pr-2" : "pl-3 pr-4",
         className
       )}
+      style={{ maxWidth }}
       {...props}
     >
       {icon}
