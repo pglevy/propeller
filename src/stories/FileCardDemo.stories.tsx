@@ -17,53 +17,55 @@ type Story = StoryObj<typeof meta>
 /**
  * Example showing FileCard in a chat input context with file management
  */
-export const ChatInputExample: Story = {
-  render: () => {
-    const [files, setFiles] = useState([
-      { id: 1, name: 'requirements.pdf', size: 1024 * 250 },
-      { id: 2, name: 'design-mockup.png', size: 1024 * 1024 * 2.1 },
-      { id: 3, name: 'implementation.tsx', size: 1024 * 45 },
-    ])
+function ChatInputExampleComponent() {
+  const [files, setFiles] = useState([
+    { id: 1, name: 'requirements.pdf', size: 1024 * 250 },
+    { id: 2, name: 'design-mockup.png', size: 1024 * 1024 * 2.1 },
+    { id: 3, name: 'implementation.tsx', size: 1024 * 45 },
+  ])
 
-    const handleRemove = (id: number) => {
-      setFiles(files.filter(f => f.id !== id))
+  const handleRemove = (id: number) => {
+    setFiles(files.filter(f => f.id !== id))
+  }
+
+  const handleAddFile = () => {
+    const newFile = {
+      id: Date.now(),
+      name: `new-file-${files.length + 1}.pdf`,
+      size: Math.floor(Math.random() * 1024 * 1024 * 5),
     }
+    setFiles([...files, newFile])
+  }
 
-    const handleAddFile = () => {
-      const newFile = {
-        id: Date.now(),
-        name: `new-file-${files.length + 1}.pdf`,
-        size: Math.floor(Math.random() * 1024 * 1024 * 5),
-      }
-      setFiles([...files, newFile])
-    }
-
-    return (
-      <div className="max-w-2xl space-y-4">
-        <div className="space-y-2">
-          <h3 className="text-sm font-medium">Attached Files</h3>
-          {files.length === 0 ? (
-            <p className="text-sm text-muted-foreground">No files attached</p>
-          ) : (
-            <div className="flex flex-wrap gap-2">
-              {files.map(file => (
-                <FileCard
-                  key={file.id}
-                  fileName={file.name}
-                  fileSize={file.size}
-                  showRemove={true}
-                  onRemove={() => handleRemove(file.id)}
-                />
-              ))}
-            </div>
-          )}
-        </div>
-        <Button onClick={handleAddFile} variant="outline" size="sm">
-          Add Sample File
-        </Button>
+  return (
+    <div className="max-w-2xl space-y-4">
+      <div className="space-y-2">
+        <h3 className="text-sm font-medium">Attached Files</h3>
+        {files.length === 0 ? (
+          <p className="text-sm text-muted-foreground">No files attached</p>
+        ) : (
+          <div className="flex flex-wrap gap-2">
+            {files.map(file => (
+              <FileCard
+                key={file.id}
+                fileName={file.name}
+                fileSize={file.size}
+                showRemove={true}
+                onRemove={() => handleRemove(file.id)}
+              />
+            ))}
+          </div>
+        )}
       </div>
-    )
-  },
+      <Button onClick={handleAddFile} variant="outline" size="sm">
+        Add Sample File
+      </Button>
+    </div>
+  )
+}
+
+export const ChatInputExample: Story = {
+  render: () => <ChatInputExampleComponent />,
 }
 
 /**
