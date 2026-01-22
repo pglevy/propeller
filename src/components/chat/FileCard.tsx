@@ -49,14 +49,14 @@ function getFileIcon(filename: string): React.ReactNode {
   // Image files
   if (['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'].includes(ext || '')) {
     return (
-      <FileImage className="size-5 text-blue-600 flex-shrink-0" />
+      <FileImage className="size-5 text-primary shrink-0" />
     )
   }
   
   // PDF files
   if (ext === 'pdf') {
     return (
-      <svg className="size-5 text-red-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="size-5 text-destructive shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
       </svg>
     )
@@ -65,13 +65,13 @@ function getFileIcon(filename: string): React.ReactNode {
   // Code files
   if (['js', 'ts', 'jsx', 'tsx', 'py', 'java', 'cpp', 'c', 'html', 'css', 'json', 'xml'].includes(ext || '')) {
     return (
-      <FileCode className="size-5 text-purple-600 flex-shrink-0" />
+      <FileCode className="size-5 shrink-0" style={{ color: 'var(--aurora-purple-3)' }} />
     )
   }
   
   // Default file icon
   return (
-    <FileText className="size-5 text-gray-600 flex-shrink-0" />
+    <FileText className="size-5 text-muted-foreground shrink-0" />
   )
 }
 
