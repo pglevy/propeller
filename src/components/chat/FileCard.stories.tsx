@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { FileCard } from './FileCard'
-import { userEvent, within, expect } from 'storybook/test'
+import { userEvent, within, expect, fn } from 'storybook/test'
 
 const meta = {
   title: 'Chat/FileCard',
@@ -198,6 +198,7 @@ export const RemoveInteraction: Story = {
     fileName: 'test-file.pdf',
     fileSize: 1024 * 100,
     showRemove: true,
+    onRemove: fn(),
   },
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement)
