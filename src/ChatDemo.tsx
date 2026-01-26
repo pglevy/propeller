@@ -122,7 +122,6 @@ function ChatPanelHeaderDemo() {
   const [showThreads, setShowThreads] = useState(false) // Start in chat view
   const [showThreadDropdown, setShowThreadDropdown] = useState(false)
   const [threadSearchQuery, setThreadSearchQuery] = useState('')
-  const [displayTitle, setDisplayTitle] = useState('Expense Agent')
   const [isTyping, setIsTyping] = useState(false)
   const [isPinned, setIsPinned] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
@@ -156,7 +155,6 @@ function ChatPanelHeaderDemo() {
   const handleNewChat = () => {
     setShowThreads(false)
     setHasMessageBeenSent(false)
-    setDisplayTitle('New Chat')
     setIsTyping(false)
     setIsPinned(false)
     setSelectedHistoryThread('')
@@ -165,7 +163,6 @@ function ChatPanelHeaderDemo() {
   }
 
   const handleThreadSelect = (threadName: string) => {
-    setDisplayTitle(threadName)
     setShowThreadDropdown(false)
     setShowThreads(false)
     setHasMessageBeenSent(true)

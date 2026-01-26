@@ -44,7 +44,6 @@ const InteractiveDemo = () => {
   const [showThreads, setShowThreads] = useState(false) // Start in chat view for Back Page mode
   const [showThreadDropdown, setShowThreadDropdown] = useState(false)
   const [threadSearchQuery, setThreadSearchQuery] = useState('')
-  const [displayTitle, setDisplayTitle] = useState('Expense Agent')
   const [isTyping, setIsTyping] = useState(false)
   const [isPinned, setIsPinned] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
@@ -103,7 +102,6 @@ const InteractiveDemo = () => {
   const handleNewChat = () => {
     setShowThreads(false)
     setHasMessageBeenSent(false)
-    setDisplayTitle('New Chat')
     setIsTyping(false)
     setIsPinned(false)
     setSelectedHistoryThread('')
@@ -117,7 +115,6 @@ const InteractiveDemo = () => {
   }
 
   const handleThreadSelect = (threadName: string) => {
-    setDisplayTitle(threadName)
     setShowThreadDropdown(false)
     setShowThreads(false) // Go to chat view when selecting a thread
     setHasMessageBeenSent(true)
@@ -218,7 +215,6 @@ const InteractiveDemo = () => {
                   setShowThreads(false)
                   // Use a thread name that makes sense for pinning
                   const threadName = 'Project Planning Discussion'
-                  setDisplayTitle(threadName)
                   setSelectedThreadName(threadName)
                 }}
                 className="block w-full text-xs px-2 py-1 bg-purple-100 hover:bg-purple-200 rounded"
