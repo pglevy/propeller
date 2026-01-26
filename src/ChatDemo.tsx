@@ -254,13 +254,13 @@ function ChatPanelHeaderDemo() {
               <div className="space-y-1">
                 <button 
                   onClick={simulateTyping}
-                  className="block w-full text-xs px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded"
+                  className="block w-full text-xs px-2 py-1 bg-primary/10 hover:bg-primary/20 text-primary rounded"
                 >
                   Simulate Typing
                 </button>
                 <button 
                   onClick={simulateMessageSent}
-                  className="block w-full text-xs px-2 py-1 bg-green-100 hover:bg-green-200 rounded"
+                  className="block w-full text-xs px-2 py-1 bg-secondary/10 hover:bg-secondary/20 text-secondary rounded"
                 >
                   Message Sent
                 </button>
@@ -439,7 +439,7 @@ function ChatPanelHeaderDemo() {
         </div>
         
         {/* Instructions */}
-        <div className="bg-blue-50 p-4 rounded-lg text-sm">
+        <div className="bg-muted/30 p-4 rounded-lg text-sm border">
           <h4 className="font-semibold mb-2">How to Use:</h4>
           <ul className="space-y-1 text-muted-foreground">
             <li>• <strong>Initial State:</strong> Starts in threads list view</li>
