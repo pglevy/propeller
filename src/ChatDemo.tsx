@@ -338,7 +338,6 @@ function ChatPanelHeaderDemo() {
                           setSelectedThreadName(thread)
                           setShowThreads(false)
                           setHasMessageBeenSent(true)
-                          setDisplayTitle(thread)
                         }}
                         className="p-3 rounded-lg border hover:bg-accent cursor-pointer flex gap-3"
                       >
@@ -365,7 +364,6 @@ function ChatPanelHeaderDemo() {
                           setSelectedThreadName(thread)
                           setShowThreads(false)
                           setHasMessageBeenSent(true)
-                          setDisplayTitle(thread)
                         }}
                         className="p-3 rounded-lg border hover:bg-accent cursor-pointer flex gap-3"
                       >

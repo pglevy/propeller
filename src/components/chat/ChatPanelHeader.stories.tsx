@@ -54,6 +54,7 @@ const InteractiveDemo = () => {
 
   const getDisplayTitle = () => {
     if (threadMode === 'Dropdown') {
+      if (selectedThreadName) return selectedThreadName
       if (hasMessageBeenSent) return 'Expense reimbursement request - Client dinner'
       return 'New Chat'
     } else if (threadMode === 'History') {
@@ -62,6 +63,7 @@ const InteractiveDemo = () => {
       if (showThreads) {
         return 'Expense Agent'
       } else {
+        if (selectedThreadName) return selectedThreadName
         if (hasMessageBeenSent) return 'Expense reimbursement request - Client dinner'
         return 'Expense Agent'
       }
@@ -308,7 +310,6 @@ const InteractiveDemo = () => {
                         setSelectedThreadName(thread)
                         setShowThreads(false)
                         setHasMessageBeenSent(true)
-                        setDisplayTitle(thread)
                       }}
                       className="p-3 rounded-lg border hover:bg-accent cursor-pointer flex gap-3"
                     >
@@ -335,7 +336,6 @@ const InteractiveDemo = () => {
                         setSelectedThreadName(thread)
                         setShowThreads(false)
                         setHasMessageBeenSent(true)
-                        setDisplayTitle(thread)
                       }}
                       className="p-3 rounded-lg border hover:bg-accent cursor-pointer flex gap-3"
                     >
