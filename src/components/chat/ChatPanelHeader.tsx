@@ -212,6 +212,7 @@ export function ChatPanelHeader({
                 className="text-muted-foreground hover:text-foreground"
                 onMouseEnter={() => setHoveredTooltip('back')}
                 onMouseLeave={() => setHoveredTooltip(null)}
+                aria-label="Back to Threads"
               >
                 <ArrowLeft className="size-4" />
               </Button>
@@ -238,6 +239,7 @@ export function ChatPanelHeader({
                 variant="ghost"
                 onClick={onThreadDropdownToggle}
                 className="font-semibold text-sm text-foreground hover:bg-accent px-2 py-1 h-auto flex items-center gap-1 max-w-full justify-start"
+                aria-label="Open thread dropdown"
               >
                 <span className="truncate">
                   {displayTitle}
@@ -386,6 +388,7 @@ export function ChatPanelHeader({
               className="p-0 h-auto w-auto"
               onMouseEnter={() => setHoveredTooltip('pin')}
               onMouseLeave={() => setHoveredTooltip(null)}
+              aria-label="Pin Thread"
             >
               <Pin className="size-4" />
             </Button>
@@ -407,6 +410,7 @@ export function ChatPanelHeader({
               className="text-muted-foreground hover:text-foreground ml-2"
               onMouseEnter={() => setHoveredTooltip('minimize-maximize')}
               onMouseLeave={() => setHoveredTooltip(null)}
+              aria-label={isExpanded ? 'Minimize' : 'Maximize'}
             >
               {isExpanded ? (
                 <div className="size-4 border border-current rounded-sm flex items-center justify-center">
