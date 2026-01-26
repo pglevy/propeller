@@ -3,6 +3,15 @@ import { Button } from "@/components/ui/button"
 import { ArrowLeft, ChevronDown, Search, CheckCircle, SquarePen, X, Pin, History } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 
+// Move TypingAnimation outside the component to avoid recreation on each render
+const TypingAnimation = () => (
+  <span className="inline-flex items-center gap-1">
+    <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+    <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
+    <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+  </span>
+)
+
 export interface ChatThread {
   id: string
   name: string
@@ -150,26 +159,6 @@ export function ChatPanelHeader({
 }: ChatPanelHeaderProps) {
   const dropdownRef = useRef<HTMLDivElement>(null)
   const [hoveredTooltip, setHoveredTooltip] = useState<string | null>(null)
-  const [isTransitioning, setIsTransitioning] = useState(false)
-  const [displayedTitle, setDisplayedTitle] = useState(displayTitle)
-
-  // Handle title transitions
-  useEffect(() => {
-    if (displayTitle !== displayedTitle) {
-      setIsTransitioning(true)
-      setTimeout(() => {
-        setDisplayedTitle(displayTitle)
-        setTimeout(() => setIsTransitioning(false), 50)
-      }, 100)
-    }
-  }, [displayTitle, displayedTitle])
-
-  // Initialize displayed title
-  useEffect(() => {
-    if (!displayedTitle) {
-      setDisplayedTitle(displayTitle)
-    }
-  }, [displayTitle, displayedTitle])
 
   // Handle click outside dropdown
   useEffect(() => {
@@ -197,14 +186,6 @@ export function ChatPanelHeader({
 
   const filteredRecentThreads = recentThreads.filter(name => 
     name.toLowerCase().includes(threadSearchQuery.toLowerCase())
-  )
-
-  const TypingAnimation = () => (
-    <span className="inline-flex items-center gap-1">
-      <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
-      <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
-      <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
-    </span>
   )
 
   return (
@@ -248,11 +229,8 @@ export function ChatPanelHeader({
           <div className="relative dropdown-container flex-1 min-w-0" ref={dropdownRef}>
             {threadMode === 'History' ? (
               <span className="font-semibold text-sm text-foreground flex items-center gap-1 max-w-full">
-                <span className={cn(
-                  "truncate transition-opacity duration-150",
-                  isTransitioning ? "opacity-0" : "opacity-100"
-                )}>
-                  {displayedTitle}
+                <span className="truncate">
+                  {displayTitle}
                 </span>
               </span>
             ) : (
@@ -261,11 +239,8 @@ export function ChatPanelHeader({
                 onClick={onThreadDropdownToggle}
                 className="font-semibold text-sm text-foreground hover:bg-accent px-2 py-1 h-auto flex items-center gap-1 max-w-full justify-start"
               >
-                <span className={cn(
-                  "truncate transition-opacity duration-150",
-                  isTransitioning ? "opacity-0" : "opacity-100"
-                )}>
-                  {displayedTitle}
+                <span className="truncate">
+                  {displayTitle}
                 </span>
                 <ChevronDown className="size-3 shrink-0" />
               </Button>
@@ -348,11 +323,8 @@ export function ChatPanelHeader({
           </div>
         ) : (
           <span className="font-semibold text-sm text-foreground transition-all duration-300 ease-in-out flex items-center gap-2 min-w-0">
-            <span className={cn(
-              "truncate transition-opacity duration-150",
-              isTransitioning ? "opacity-0" : "opacity-100"
-            )}>
-              {displayedTitle}
+            <span className="truncate">
+              {displayTitle}
             </span>
             {isTyping && (
               <span className="shrink-0">
