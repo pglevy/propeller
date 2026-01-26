@@ -148,8 +148,9 @@ const InteractiveDemo = () => {
         
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div>
-            <label className="block text-xs font-medium mb-1">Thread Mode</label>
+            <label htmlFor="thread-mode-select" className="block text-xs font-medium mb-1">Thread Mode</label>
             <select 
+              id="thread-mode-select"
               value={threadMode}
               onChange={(e) => setThreadMode(e.target.value as ThreadMode)}
               className="w-full text-xs px-2 py-1 border rounded"
@@ -161,8 +162,9 @@ const InteractiveDemo = () => {
           </div>
           
           <div>
-            <label className="block text-xs font-medium mb-1">New Chat Mode</label>
+            <label htmlFor="new-chat-mode-select" className="block text-xs font-medium mb-1">New Chat Mode</label>
             <select 
+              id="new-chat-mode-select"
               value={newChatMode}
               onChange={(e) => setNewChatMode(e.target.value as NewChatMode)}
               className="w-full text-xs px-2 py-1 border rounded"
