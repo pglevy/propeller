@@ -351,6 +351,7 @@ export function ChatPanelHeader({
             className="text-muted-foreground hover:text-foreground transition-all duration-300 ease-out"
             onMouseEnter={() => setHoveredTooltip('newchat')}
             onMouseLeave={() => setHoveredTooltip(null)}
+            aria-label="New Chat"
           >
             {newChatMode === 'Plus' ? (
               <div className="size-4 rounded-full border-2 border-current flex items-center justify-center">
@@ -535,6 +536,7 @@ export function ChatPanelHeader({
             className="text-muted-foreground hover:text-foreground ml-2"
             onMouseEnter={() => setHoveredTooltip('close')}
             onMouseLeave={() => setHoveredTooltip(null)}
+            aria-label="Close"
           >
             <X className="size-4" />
           </Button>
