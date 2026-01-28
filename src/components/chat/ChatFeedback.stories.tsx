@@ -36,7 +36,7 @@ export const VariantComparison: Story = {
     <div className="space-y-6 bg-background p-4">
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-foreground">Subtle Variant</h3>
-        <p className="text-xs text-muted-foreground bg-background">Both thumbs use blue when selected</p>
+        <p className="text-xs text-muted-foreground bg-background">Blue icon when selected, no background</p>
         <ChatFeedback variant="subtle" />
       </div>
       <div className="space-y-2">
@@ -50,7 +50,7 @@ export const VariantComparison: Story = {
 
 /**
  * This story simulates a user clicking the thumbs up button in subtle variant.
- * The button should change to a blue background when selected.
+ * The button should show a blue icon with no background.
  */
 export const SubtleThumbsUpSelected: Story = {
   args: {
@@ -62,8 +62,7 @@ export const SubtleThumbsUpSelected: Story = {
     const thumbsUpButton = canvas.getByLabelText('Helpful')
     await userEvent.click(thumbsUpButton)
 
-    await expect(thumbsUpButton).toHaveClass('bg-blue-1')
-    await expect(thumbsUpButton).toHaveClass('text-blue-3')
+    await expect(thumbsUpButton).toHaveClass('text-primary')
   },
 }
 
@@ -87,7 +86,7 @@ export const SemanticThumbsUpSelected: Story = {
 
 /**
  * This story simulates a user clicking the thumbs down button in subtle variant.
- * The button should change to a blue background when selected.
+ * The button should show a blue icon with no background.
  */
 export const SubtleThumbsDownSelected: Story = {
   args: {
@@ -99,8 +98,7 @@ export const SubtleThumbsDownSelected: Story = {
     const thumbsDownButton = canvas.getByLabelText('Not helpful')
     await userEvent.click(thumbsDownButton)
 
-    await expect(thumbsDownButton).toHaveClass('bg-blue-1')
-    await expect(thumbsDownButton).toHaveClass('text-blue-3')
+    await expect(thumbsDownButton).toHaveClass('text-primary')
   },
 }
 
