@@ -19,51 +19,105 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {}
 
-export const WithDescription: Story = {
+export const SubtleVariant: Story = {
+  args: {
+    variant: "subtle",
+  },
+}
+
+export const SemanticVariant: Story = {
+  args: {
+    variant: "semantic",
+  },
+}
+
+export const VariantComparison: Story = {
   render: () => (
-    <div className="space-y-4">
-      <p className="text-sm text-muted-foreground max-w-md">
-        Click the thumbs up or down to provide feedback. Click again to deselect.
-      </p>
-      <ChatFeedback />
+    <div className="space-y-6 bg-background p-4">
+      <div className="space-y-2">
+        <h3 className="text-sm font-semibold text-foreground">Subtle Variant</h3>
+        <p className="text-xs text-muted-foreground bg-background">Both thumbs use blue when selected</p>
+        <ChatFeedback variant="subtle" />
+      </div>
+      <div className="space-y-2">
+        <h3 className="text-sm font-semibold text-foreground">Semantic Variant</h3>
+        <p className="text-xs text-muted-foreground bg-background">Thumbs up = green, thumbs down = red</p>
+        <ChatFeedback variant="semantic" />
+      </div>
     </div>
   ),
 }
 
 /**
- * This story simulates a user clicking the thumbs up button.
- * The button should change to a green background when selected.
+ * This story simulates a user clicking the thumbs up button in subtle variant.
+ * The button should change to a blue background when selected.
  */
-export const ThumbsUpSelected: Story = {
+export const SubtleThumbsUpSelected: Story = {
+  args: {
+    variant: "subtle",
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
 
-    // Find the thumbs up button by its aria-label
     const thumbsUpButton = canvas.getByLabelText('Helpful')
-
-    // Click the thumbs up button
     await userEvent.click(thumbsUpButton)
 
-    // Verify the button has the selected state (green background)
+    await expect(thumbsUpButton).toHaveClass('bg-blue-1')
+    await expect(thumbsUpButton).toHaveClass('text-blue-3')
+  },
+}
+
+/**
+ * This story simulates a user clicking the thumbs up button in semantic variant.
+ * The button should change to a green background when selected.
+ */
+export const SemanticThumbsUpSelected: Story = {
+  args: {
+    variant: "semantic",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    const thumbsUpButton = canvas.getByLabelText('Helpful')
+    await userEvent.click(thumbsUpButton)
+
     await expect(thumbsUpButton).toHaveClass('bg-positive')
   },
 }
 
 /**
- * This story simulates a user clicking the thumbs down button.
- * The button should change to a pink background when selected.
+ * This story simulates a user clicking the thumbs down button in subtle variant.
+ * The button should change to a blue background when selected.
  */
-export const ThumbsDownSelected: Story = {
+export const SubtleThumbsDownSelected: Story = {
+  args: {
+    variant: "subtle",
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
 
-    // Find the thumbs down button by its aria-label
     const thumbsDownButton = canvas.getByLabelText('Not helpful')
-
-    // Click the thumbs down button
     await userEvent.click(thumbsDownButton)
 
-    // Verify the button has the selected state (pink background)
+    await expect(thumbsDownButton).toHaveClass('bg-blue-1')
+    await expect(thumbsDownButton).toHaveClass('text-blue-3')
+  },
+}
+
+/**
+ * This story simulates a user clicking the thumbs down button in semantic variant.
+ * The button should change to a red background when selected.
+ */
+export const SemanticThumbsDownSelected: Story = {
+  args: {
+    variant: "semantic",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    const thumbsDownButton = canvas.getByLabelText('Not helpful')
+    await userEvent.click(thumbsDownButton)
+
     await expect(thumbsDownButton).toHaveClass('bg-negative')
   },
 }
