@@ -72,8 +72,9 @@ export function ChatFeedback({
     }
 
     if (variant === "subtle") {
-      // Subtle: blue icon using primary color (which is aurora-blue-3), no background
-      return "!text-primary hover:!text-primary"
+      // Subtle: blue icon using primary color, no background
+      // Use [&]:text-primary for higher specificity
+      return "[&]:text-primary [&:hover]:text-primary [&_svg]:text-primary"
     }
 
     // Semantic: thumbs up = green, thumbs down = red

@@ -62,7 +62,8 @@ export const SubtleThumbsUpSelected: Story = {
     const thumbsUpButton = canvas.getByLabelText('Helpful')
     await userEvent.click(thumbsUpButton)
 
-    await expect(thumbsUpButton).toHaveClass('text-primary')
+    // Check for the arbitrary variant class we're using
+    await expect(thumbsUpButton).toHaveClass('[&]:text-primary')
   },
 }
 
@@ -98,7 +99,8 @@ export const SubtleThumbsDownSelected: Story = {
     const thumbsDownButton = canvas.getByLabelText('Not helpful')
     await userEvent.click(thumbsDownButton)
 
-    await expect(thumbsDownButton).toHaveClass('text-primary')
+    // Check for the arbitrary variant class we're using
+    await expect(thumbsDownButton).toHaveClass('[&]:text-primary')
   },
 }
 
