@@ -7,21 +7,61 @@ const meta = {
   component: ChatFeedback,
   parameters: {
     layout: 'centered',
+    docs: {
+      description: {
+        component: 'A feedback component for collecting thumbs up/down reactions with optional detailed feedback. Use the **default** variant for general feedback, or **agent-evaluation** for AI response evaluation with color-coded indicators.',
+      },
+    },
   },
   tags: ['autodocs'],
   args: {
     onFeedbackSubmit: fn(),
+  },
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['default', 'agent-evaluation'],
+      description: 'Visual style variant. Use "default" for general feedback, "agent-evaluation" for clear distinction between positive and negative feedback (such as for evaluating AI agent responses).',
+      table: {
+        defaultValue: { summary: 'default' },
+      },
+    },
+    showDetailsOption: {
+      control: 'boolean',
+      description: 'Show "Add details" link after feedback is given',
+      table: {
+        defaultValue: { summary: 'true' },
+      },
+    },
+    onFeedbackSubmit: {
+      description: 'Callback when feedback is submitted (with optional details)',
+    },
   },
 } satisfies Meta<typeof ChatFeedback>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'The default variant with blue icon on selection. Recommended for most use cases.',
+      },
+    },
+  },
+}
 
 export const DefaultVariant: Story = {
   args: {
     variant: "default",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Default variant: Clean, subtle feedback with blue icon when selected. Use for general content feedback.',
+      },
+    },
   },
 }
 
@@ -29,9 +69,23 @@ export const AgentEvaluationVariant: Story = {
   args: {
     variant: "agent-evaluation",
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Agent evaluation variant: Color-coded feedback with backgrounds. Use for AI response evaluation where visual distinction is important.',
+      },
+    },
+  },
 }
 
 export const VariantComparison: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Side-by-side comparison of both variants to help you choose the right one for your use case.',
+      },
+    },
+  },
   render: () => (
     <div className="space-y-6 bg-background p-4">
       <div className="space-y-2">
