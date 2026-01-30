@@ -13,11 +13,11 @@ import { Textarea } from "@/components/ui/textarea"
 export interface ChatFeedbackProps {
   /**
    * Color scheme variant
-   * - "subtle": Both thumbs use blue when selected
-   * - "semantic": Thumbs up uses green, thumbs down uses red
-   * @default "semantic"
+   * - "default": Blue icon when selected, no background
+   * - "agent-evaluation": Thumbs up uses green, thumbs down uses red with backgrounds
+   * @default "default"
    */
-  variant?: "subtle" | "semantic"
+  variant?: "default" | "agent-evaluation"
   /**
    * Whether to show the "add details" action link after feedback is given
    * @default true
@@ -30,7 +30,7 @@ export interface ChatFeedbackProps {
 }
 
 export function ChatFeedback({
-  variant = "semantic",
+  variant = "default",
   showDetailsOption = true,
   onFeedbackSubmit
 }: ChatFeedbackProps) {
@@ -71,13 +71,13 @@ export function ChatFeedback({
       return "text-muted-foreground"
     }
 
-    if (variant === "subtle") {
-      // Subtle: blue icon using primary color, no background
+    if (variant === "default") {
+      // Default: blue icon using primary color, no background
       // Use [&]:text-primary for higher specificity
       return "[&]:text-primary [&:hover]:text-primary [&_svg]:text-primary"
     }
 
-    // Semantic: thumbs up = green, thumbs down = red
+    // Agent evaluation: thumbs up = green, thumbs down = red
     if (type === "up") {
       return "bg-positive text-positive-foreground hover:bg-positive hover:text-positive-foreground"
     }

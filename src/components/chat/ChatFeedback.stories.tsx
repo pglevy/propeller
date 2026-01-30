@@ -19,15 +19,15 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {}
 
-export const SubtleVariant: Story = {
+export const DefaultVariant: Story = {
   args: {
-    variant: "subtle",
+    variant: "default",
   },
 }
 
-export const SemanticVariant: Story = {
+export const AgentEvaluationVariant: Story = {
   args: {
-    variant: "semantic",
+    variant: "agent-evaluation",
   },
 }
 
@@ -35,26 +35,26 @@ export const VariantComparison: Story = {
   render: () => (
     <div className="space-y-6 bg-background p-4">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-foreground">Subtle Variant</h3>
+        <h3 className="text-sm font-semibold text-foreground">Default Variant</h3>
         <p className="text-xs text-muted-foreground bg-background">Blue icon when selected, no background</p>
-        <ChatFeedback variant="subtle" />
+        <ChatFeedback variant="default" />
       </div>
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-foreground">Semantic Variant</h3>
+        <h3 className="text-sm font-semibold text-foreground">Agent Evaluation Variant</h3>
         <p className="text-xs text-muted-foreground bg-background">Thumbs up = green, thumbs down = red</p>
-        <ChatFeedback variant="semantic" />
+        <ChatFeedback variant="agent-evaluation" />
       </div>
     </div>
   ),
 }
 
 /**
- * This story simulates a user clicking the thumbs up button in subtle variant.
+ * This story simulates a user clicking the thumbs up button in default variant.
  * The button should show a blue icon with no background.
  */
-export const SubtleThumbsUpSelected: Story = {
+export const DefaultThumbsUpSelected: Story = {
   args: {
-    variant: "subtle",
+    variant: "default",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
@@ -68,12 +68,12 @@ export const SubtleThumbsUpSelected: Story = {
 }
 
 /**
- * This story simulates a user clicking the thumbs up button in semantic variant.
+ * This story simulates a user clicking the thumbs up button in agent evaluation variant.
  * The button should change to a green background when selected.
  */
-export const SemanticThumbsUpSelected: Story = {
+export const AgentEvaluationThumbsUpSelected: Story = {
   args: {
-    variant: "semantic",
+    variant: "agent-evaluation",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
@@ -86,12 +86,12 @@ export const SemanticThumbsUpSelected: Story = {
 }
 
 /**
- * This story simulates a user clicking the thumbs down button in subtle variant.
+ * This story simulates a user clicking the thumbs down button in default variant.
  * The button should show a blue icon with no background.
  */
-export const SubtleThumbsDownSelected: Story = {
+export const DefaultThumbsDownSelected: Story = {
   args: {
-    variant: "subtle",
+    variant: "default",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
@@ -105,12 +105,12 @@ export const SubtleThumbsDownSelected: Story = {
 }
 
 /**
- * This story simulates a user clicking the thumbs down button in semantic variant.
+ * This story simulates a user clicking the thumbs down button in agent evaluation variant.
  * The button should change to a red background when selected.
  */
-export const SemanticThumbsDownSelected: Story = {
+export const AgentEvaluationThumbsDownSelected: Story = {
   args: {
-    variant: "semantic",
+    variant: "agent-evaluation",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
@@ -126,6 +126,9 @@ export const SemanticThumbsDownSelected: Story = {
  * This story tests the toggle behavior - clicking again should deselect.
  */
 export const ToggleBehavior: Story = {
+  args: {
+    variant: "agent-evaluation",
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
 
@@ -145,6 +148,9 @@ export const ToggleBehavior: Story = {
  * This story tests switching between thumbs up and down.
  */
 export const SwitchBetweenOptions: Story = {
+  args: {
+    variant: "agent-evaluation",
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
 
