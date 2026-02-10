@@ -51,3 +51,4 @@ Thumbs.db
 storybook-static
 
 reference
+.kiro/specs/story-map-release/.config.kiro

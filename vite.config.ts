@@ -29,6 +29,15 @@ export default defineConfig(({ mode }) => ({
           environment: 'node',
         }
       },
+      // Component tests project (React components with jsdom)
+      {
+        extends: true,
+        test: {
+          name: 'component',
+          include: ['src/**/*.test.tsx'],
+          environment: 'jsdom',
+        }
+      },
       // Storybook tests project
       {
         extends: true,
