@@ -52,8 +52,8 @@ export function StoryMapRelease({
       open={isOpen}
       onOpenChange={handleOpenChange}
     >
-      <div data-slot="story-map-release" className={cn("rounded-md border bg-background", className)}>
-        <div data-slot="release-header" className="flex items-center gap-3 px-4 py-2 bg-muted/50">
+      <div data-slot="story-map-release" className={cn("bg-transparent", className)}>
+        <div data-slot="release-header" className="flex items-center gap-3 px-4 py-2">
           <CollapsibleTrigger asChild>
             <Button
               variant="ghost"
@@ -66,37 +66,35 @@ export function StoryMapRelease({
             </Button>
           </CollapsibleTrigger>
 
-          <span data-slot="release-title" className="text-sm font-medium text-foreground bg-muted/50">
+          <span data-slot="release-title" className="text-base font-semibold text-foreground">
             {title}
           </span>
 
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon-sm" aria-label="Release actions">
+                <MoreHorizontal className="size-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onSelect={onCheckReadiness}>Check Readiness</DropdownMenuItem>
+              <DropdownMenuItem onSelect={onEdit}>Edit</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem variant="destructive" onSelect={onDelete}>Delete</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <Badge variant={badgeProps.variant}>{badgeProps.label}</Badge>
 
-          <span data-slot="release-story-count" className="text-xs text-muted-foreground bg-muted/50">
+          <span data-slot="release-story-count" className="text-xs text-muted-foreground">
             {storyCount} {storyCount === 1 ? "story" : "stories"}
           </span>
-
-          <div className="ml-auto">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon-sm" aria-label="Release actions">
-                  <MoreHorizontal className="size-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onSelect={onCheckReadiness}>Check Readiness</DropdownMenuItem>
-                <DropdownMenuItem onSelect={onEdit}>Edit</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem variant="destructive" onSelect={onDelete}>Delete</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
         </div>
 
         <Separator />
 
         <CollapsibleContent>
-          <div data-slot="release-columns" className="flex">
+          <div data-slot="release-columns" className="flex gap-3 py-4">
             {children}
           </div>
         </CollapsibleContent>
