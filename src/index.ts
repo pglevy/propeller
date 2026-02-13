@@ -58,7 +58,21 @@ export * from "./components/ui/tooltip"
 export * from "./components/chat"
 
 // Shared Components
-export * from "./components/shared/EnhancedTabs"
+export {
+  EnhancedTabs,
+  EnhancedTabsList,
+  EnhancedTabsTrigger,
+  TabIcon,
+  TabLabel,
+  TabCount,
+} from "./components/shared/EnhancedTabs"
+export type {
+  EnhancedTabsProps,
+  EnhancedTabsListProps,
+  EnhancedTabsTriggerProps,
+  TabIconProps,
+  TabCountProps,
+} from "./components/shared/EnhancedTabs"
 export * from "./components/shared/ItemList"
 export * from "./components/shared/mode-toggle"
 export * from "./components/shared/ResponsiveEnhancedTabs"
