@@ -102,13 +102,17 @@ export function TaskPlan({
               role="listitem"
               className="border rounded-lg overflow-hidden bg-background"
             >
-              <CollapsibleTrigger className="w-full">
+              <CollapsibleTrigger 
+                className="w-full"
+                aria-label={`${isOpen ? 'Collapse' : 'Expand'} task ${index + 1}: ${task.taskName}`}
+              >
                 <div className="flex items-center gap-3 p-3 hover:bg-accent/50 transition-colors">
                   <ChevronDown
                     className={cn(
                       "size-4 text-muted-foreground transition-transform shrink-0",
                       isOpen ? "rotate-0" : "-rotate-90"
                     )}
+                    aria-hidden="true"
                   />
                   <div
                     className="size-7 rounded-sm flex items-center justify-center shrink-0"
@@ -116,6 +120,7 @@ export function TaskPlan({
                       backgroundColor: iconConfig.bg,
                       color: iconConfig.fg,
                     }}
+                    aria-hidden="true"
                   >
                     <Icon className="size-3.5" />
                   </div>
@@ -179,26 +184,38 @@ function EditableTaskContent({
   task: TaskPlanItem
   onUpdate: (updates: Partial<TaskPlanItem>) => void
 }) {
+  const taskNameId = `task-name-${task.id}`
+  const objectTypeId = `object-type-${task.id}`
+  const objectNameId = `object-name-${task.id}`
+  const notesId = `notes-${task.id}`
+
   return (
     <div className="flex flex-col gap-3 text-sm">
       <div className="flex flex-col gap-1.5">
-        <label className="text-muted-foreground text-xs font-medium uppercase tracking-wide">
+        <label 
+          htmlFor={taskNameId}
+          className="text-muted-foreground text-xs font-medium uppercase tracking-wide"
+        >
           Task Name
         </label>
         <Input
+          id={taskNameId}
           value={task.taskName}
           onChange={(e) => onUpdate({ taskName: e.target.value })}
         />
       </div>
       <div className="flex flex-col gap-1.5">
-        <label className="text-muted-foreground text-xs font-medium uppercase tracking-wide">
+        <label 
+          htmlFor={objectTypeId}
+          className="text-muted-foreground text-xs font-medium uppercase tracking-wide"
+        >
           Object Type
         </label>
         <Select
           value={task.objectType}
           onValueChange={(value) => onUpdate({ objectType: value as ObjectTypeKey })}
         >
-          <SelectTrigger className="w-full">
+          <SelectTrigger id={objectTypeId} className="w-full">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -211,19 +228,27 @@ function EditableTaskContent({
         </Select>
       </div>
       <div className="flex flex-col gap-1.5">
-        <label className="text-muted-foreground text-xs font-medium uppercase tracking-wide">
+        <label 
+          htmlFor={objectNameId}
+          className="text-muted-foreground text-xs font-medium uppercase tracking-wide"
+        >
           Object Name
         </label>
         <Input
+          id={objectNameId}
           value={task.objectName}
           onChange={(e) => onUpdate({ objectName: e.target.value })}
         />
       </div>
       <div className="flex flex-col gap-1.5">
-        <label className="text-muted-foreground text-xs font-medium uppercase tracking-wide">
+        <label 
+          htmlFor={notesId}
+          className="text-muted-foreground text-xs font-medium uppercase tracking-wide"
+        >
           Implementation Notes
         </label>
         <Textarea
+          id={notesId}
           value={task.notes}
           onChange={(e) => onUpdate({ notes: e.target.value })}
           rows={3}
