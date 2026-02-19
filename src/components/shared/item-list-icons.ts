@@ -7,6 +7,8 @@ import {
   Ruler,
   Calculator,
   Variable,
+  Users,
+  Globe,
 } from "lucide-react"
 import type { ObjectTypeKey, IconConfig } from "./item-list-types"
 
@@ -68,6 +70,16 @@ export const ITEM_LIST_ICONS: Record<ObjectTypeKey, IconConfig> = {
     icon: Variable,
     bg: "var(--aurora-gray-1)",
     fg: "var(--aurora-gray-4)",
+  },
+  group: {
+    icon: Users,
+    bg: "var(--aurora-blue-1)",
+    fg: "var(--aurora-blue-4)",
+  },
+  site: {
+    icon: Globe,
+    bg: "var(--aurora-purple-1)",
+    fg: "var(--aurora-purple-4)",
   },
 } as const
 
