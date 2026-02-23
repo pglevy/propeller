@@ -35,11 +35,11 @@ npm install
 ### Development
 
 ```bash
-# Start Vite dev server
-npm run dev
-
-# Start Storybook (component documentation)
+# Start Storybook (primary development workflow)
 npm run storybook
+
+# Start Vite dev server (for quick component testing)
+npm run dev
 
 # Run tests
 npm test
@@ -51,12 +51,17 @@ npm run lint
 ### Building
 
 ```bash
-# Build for production
-npm run build
+# Build library for npm
+npm run build:lib
 
-# Build Storybook
+# Build Storybook (for local preview)
 npm run build-storybook
+
+# Build demo app
+npm run build
 ```
+
+**Note:** GitHub Pages automatically builds and deploys Storybook on push to main.
 
 ## Project Structure
 
@@ -137,7 +142,7 @@ Available tokens: `background`, `foreground`, `card`, `popover`, `primary`, `sec
 
 ## Documentation
 
-- **Component Documentation**: Run `npm run storybook` and visit http://localhost:6006
+- **Component Documentation**: Visit [https://pglevy.github.io/propeller/](https://pglevy.github.io/propeller/) or run `npm run storybook` locally
 - **Agent Guidelines**: See [AGENTS.md](./AGENTS.md) for AI agent development patterns
 - **Contributing**: See [CONTRIBUTING.md](./CONTRIBUTING.md) for contribution guidelines
 - **Deployment**: See [DEPLOYMENT.md](./DEPLOYMENT.md) for deployment instructions

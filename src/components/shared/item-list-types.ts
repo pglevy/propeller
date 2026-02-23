@@ -13,6 +13,8 @@ export type ObjectTypeKey =
   | "rule"
   | "expression"
   | "constant"
+  | "group"
+  | "site"
 
 /**
  * Icon configuration with Aurora Design System color pairing.

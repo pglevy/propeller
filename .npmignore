@@ -1,0 +1,54 @@
+# Source files (only publish dist/)
+src/
+public/
+
+# Development files
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+.vscode/
+.idea/
+
+# Build tools
+vite.config.ts
+tsconfig.json
+tsconfig.app.json
+tsconfig.node.json
+tsconfig.lib.json
+tailwind.config.js
+postcss.config.js
+eslint.config.js
+
+# Testing
+vitest.config.ts
+tests/
+coverage/
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# CI/CD
+.github/
+
+# Documentation (keep README.md)
+docs/
+AGENTS.md
+CONTRIBUTING.md
+DEPLOYMENT.md
+
+# Storybook
+.storybook/
+storybook-static/
+
+# Demo/playground files
+index.html
+
+# Misc
+.DS_Store
+*.log
+node_modules/
+.env
+.env.local
