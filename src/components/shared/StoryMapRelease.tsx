@@ -52,8 +52,8 @@ export function StoryMapRelease({
       open={isOpen}
       onOpenChange={handleOpenChange}
     >
-      <div data-slot="story-map-release" className={cn("bg-transparent", className)}>
-        <div data-slot="release-header" className="flex items-center gap-3 px-4 py-2">
+      <div data-slot="story-map-release" className={cn("bg-card text-card-foreground", className)}>
+        <div data-slot="release-header" className="flex items-center gap-3 px-4 py-2 bg-card">
           <CollapsibleTrigger asChild>
             <Button
               variant="ghost"
