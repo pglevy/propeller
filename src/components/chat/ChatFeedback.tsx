@@ -12,6 +12,13 @@ import { Textarea } from "@/components/ui/textarea"
 
 export interface ChatFeedbackProps {
   /**
+   * Color scheme variant
+   * - "default": Blue icon when selected, no background
+   * - "agent-evaluation": Thumbs up uses green, thumbs down uses red with backgrounds
+   * @default "default"
+   */
+  variant?: "default" | "agent-evaluation"
+  /**
    * Whether to show the "add details" action link after feedback is given
    * @default true
    */
@@ -23,6 +30,7 @@ export interface ChatFeedbackProps {
 }
 
 export function ChatFeedback({
+  variant = "default",
   showDetailsOption = true,
   onFeedbackSubmit
 }: ChatFeedbackProps) {
@@ -56,16 +64,36 @@ export function ChatFeedback({
     ? "What was good about this response?"
     : "What was the issue with this response?"
 
+  // Color classes based on variant
+  const getButtonClasses = (type: "up" | "down", isSelected: boolean) => {
+    if (!isSelected) {
+      // Unselected: use muted foreground, let ghost variant handle hover
+      return "text-muted-foreground"
+    }
+
+    if (variant === "default") {
+      // Default: blue icon using primary color, no background
+      // Use [&]:text-primary for higher specificity
+      return "[&]:text-primary [&:hover]:text-primary [&_svg]:text-primary"
+    }
+
+    // Agent evaluation: thumbs up = green, thumbs down = red
+    if (type === "up") {
+      return "bg-positive text-positive-foreground hover:bg-positive hover:text-positive-foreground"
+    }
+    return "bg-negative text-negative-foreground hover:bg-negative hover:text-negative-foreground"
+  }
+
   return (
     <>
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 bg-background">
         <div className="flex gap-1">
           <Button
             variant="ghost"
             size="icon-sm"
             onClick={() => handleFeedbackClick("up")}
             aria-label="Helpful"
-            className={feedback === "up" ? "bg-positive hover:bg-positive dark:hover:bg-positive" : "text-muted-foreground"}
+            className={getButtonClasses("up", feedback === "up")}
           >
             <ThumbsUp />
           </Button>
@@ -74,7 +102,7 @@ export function ChatFeedback({
             size="icon-sm"
             onClick={() => handleFeedbackClick("down")}
             aria-label="Not helpful"
-            className={feedback === "down" ? "bg-negative hover:bg-negative dark:hover:bg-negative" : "text-muted-foreground"}
+            className={getButtonClasses("down", feedback === "down")}
           >
             <ThumbsDown />
           </Button>
