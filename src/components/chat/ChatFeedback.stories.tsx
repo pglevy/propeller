@@ -30,7 +30,7 @@ const meta = {
       control: 'boolean',
       description: 'Show "Add details" link after feedback is given',
       table: {
-        defaultValue: { summary: 'true' },
+        defaultValue: { summary: 'false' },
       },
     },
     onFeedbackSubmit: {
@@ -69,6 +69,9 @@ export const AgentEvaluationVariant: Story = {
  * This story shows the "Add details" action link that appears after feedback is given.
  */
 export const WithAddDetailsLink: Story = {
+  args: {
+    showDetailsOption: true,
+  },
   parameters: {
     docs: {
       description: {

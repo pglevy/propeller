@@ -20,7 +20,7 @@ export interface ChatFeedbackProps {
   variant?: "default" | "agent-evaluation"
   /**
    * Whether to show the "add details" action link after feedback is given
-   * @default true
+   * @default false
    */
   showDetailsOption?: boolean
   /**
@@ -31,7 +31,7 @@ export interface ChatFeedbackProps {
 
 export function ChatFeedback({
   variant = "default",
-  showDetailsOption = true,
+  showDetailsOption = false,
   onFeedbackSubmit
 }: ChatFeedbackProps) {
   const [feedback, setFeedback] = useState<"up" | "down" | null>(null)
