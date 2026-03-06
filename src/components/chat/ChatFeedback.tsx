@@ -7,8 +7,38 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog"
 import { Textarea } from "@/components/ui/textarea"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Label } from "@/components/ui/label"
+
+export interface FeedbackOption {
+  id: string
+  label: string
+}
+
+export interface FeedbackOptions {
+  /** 
+   * Checkbox options shown when thumbs up is selected.
+   * Focus on what made the experience positive (e.g., accuracy, helpfulness, clarity).
+   */
+  positive?: FeedbackOption[]
+  /** 
+   * Checkbox options shown when thumbs down is selected.
+   * Focus on what went wrong or could be improved (e.g., incorrect info, unclear, incomplete).
+   */
+  negative?: FeedbackOption[]
+}
+
+export interface FeedbackDetails {
+  /** The user's thumbs up or down selection */
+  feedback: "up" | "down"
+  /** Optional free-form text feedback provided by the user */
+  comment?: string
+  /** Array of selected checkbox option IDs (only present if checkboxes were shown and selected) */
+  selectedOptions?: string[]
+}
 
 export interface ChatFeedbackProps {
   /**
@@ -19,50 +49,149 @@ export interface ChatFeedbackProps {
    */
   variant?: "default" | "agent-evaluation"
   /**
-   * Whether to show the "add details" action link after feedback is given
-   * @default false
+   * Whether clicking thumbs up/down should open a dialog for detailed feedback
+   * 
+   * Enable this when you want to collect rich feedback with categorization and comments.
+   * Disable for quick, low-friction feedback where users just need to indicate satisfaction
+   * without providing details (e.g., rating individual messages in a chat).
+   * 
+   * @default true
    */
-  showDetailsOption?: boolean
+  showDetailsDialog?: boolean
+  /**
+   * Whether to show checkbox options in the dialog
+   * 
+   * Enable this to help users categorize their feedback with predefined options, making it easier
+   * to analyze patterns and common issues. Disable when you only need free-form text feedback
+   * or when the context is simple enough that categorization isn't necessary.
+   * 
+   * Requires `feedbackOptions` to be provided and `showDetailsDialog` to be true.
+   * 
+   * @default true
+   */
+  showCheckboxOptions?: boolean
+  /**
+   * Predefined checkbox options for categorizing feedback
+   * 
+   * Provide separate options for positive (thumbs up) and negative (thumbs down) feedback
+   * to help users quickly identify what worked well or what went wrong. Include an "other"
+   * option with id="other" to make the comment field required when selected.
+   * 
+   * Example use cases:
+   * - AI responses: accuracy, helpfulness, clarity, completeness
+   * - Content quality: relevance, depth, readability
+   * - User experience: ease of use, performance, design
+   */
+  feedbackOptions?: FeedbackOptions
+  /**
+   * Custom dialog configuration
+   */
+  dialogConfig?: {
+    /** Custom title for the dialog */
+    title?: string
+    /** Custom description text (overrides default dynamic text) */
+    description?: string
+    /** Custom placeholder for the textarea */
+    placeholder?: string
+    /** Custom submit button text */
+    submitText?: string
+    /** Custom cancel button text */
+    cancelText?: string
+  }
   /**
    * Callback when feedback is submitted (with optional details)
    */
-  onFeedbackSubmit?: (feedback: "up" | "down", details?: string) => void
+  onFeedbackSubmit?: (details: FeedbackDetails) => void
 }
 
 export function ChatFeedback({
   variant = "default",
-  showDetailsOption = false,
+  showDetailsDialog = true,
+  showCheckboxOptions = true,
+  feedbackOptions,
+  dialogConfig,
   onFeedbackSubmit
 }: ChatFeedbackProps) {
   const [feedback, setFeedback] = useState<"up" | "down" | null>(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const [feedbackDetails, setFeedbackDetails] = useState("")
+  const [feedbackComment, setFeedbackComment] = useState("")
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([])
+  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false)
 
   const handleFeedbackClick = (type: "up" | "down") => {
-    const newFeedback = feedback === type ? null : type
-    setFeedback(newFeedback)
+    if (showDetailsDialog) {
+      // In dialog mode, always open dialog (even if changing selection)
+      setFeedback(type)
+      setIsDialogOpen(true)
+    } else {
+      // In non-dialog mode, toggle selection
+      const newFeedback = feedback === type ? null : type
+      setFeedback(newFeedback)
 
-    if (newFeedback && onFeedbackSubmit) {
-      onFeedbackSubmit(newFeedback)
+      if (newFeedback && onFeedbackSubmit) {
+        onFeedbackSubmit({ feedback: newFeedback })
+      }
     }
+  }
+
+  const handleCheckboxChange = (optionId: string, checked: boolean) => {
+    setSelectedOptions(prev =>
+      checked
+        ? [...prev, optionId]
+        : prev.filter(id => id !== optionId)
+    )
   }
 
   const handleSubmitDetails = () => {
     if (feedback && onFeedbackSubmit) {
-      onFeedbackSubmit(feedback, feedbackDetails)
+      // Check if "other" is selected and comment is required
+      const isOtherSelected = selectedOptions.includes("other")
+      if (isOtherSelected && !feedbackComment.trim()) {
+        // Mark that submit was attempted so validation message appears
+        setHasAttemptedSubmit(true)
+        return
+      }
+
+      onFeedbackSubmit({
+        feedback,
+        comment: feedbackComment || undefined,
+        selectedOptions: selectedOptions.length > 0 ? selectedOptions : undefined,
+      })
     }
     setIsDialogOpen(false)
-    setFeedbackDetails("")
+    setFeedbackComment("")
+    setSelectedOptions([])
+    setHasAttemptedSubmit(false)
   }
 
   const handleCancel = () => {
     setIsDialogOpen(false)
-    setFeedbackDetails("")
+    setFeedbackComment("")
+    setSelectedOptions([])
+    setHasAttemptedSubmit(false)
+    // Reset feedback when canceling
+    setFeedback(null)
   }
 
-  const dialogTitle = feedback === "up"
+  const defaultDialogTitle = feedback === "up"
     ? "What was good about this response?"
     : "What was the issue with this response?"
+
+  const dialogTitle = dialogConfig?.title || "Feedback"
+  const dialogDescription = dialogConfig?.description || defaultDialogTitle
+  const placeholder = dialogConfig?.placeholder || "Enter your feedback..."
+  const submitText = dialogConfig?.submitText || "Submit"
+  const cancelText = dialogConfig?.cancelText || "Cancel"
+
+  // Get the appropriate checkbox options based on feedback type
+  const currentCheckboxOptions = feedback === "up" 
+    ? feedbackOptions?.positive 
+    : feedbackOptions?.negative
+
+  // Check if "other" option is selected
+  const isOtherSelected = selectedOptions.includes("other")
+  const isCommentRequired = isOtherSelected
+  const showValidationError = hasAttemptedSubmit && isCommentRequired && !feedbackComment.trim()
 
   // Color classes based on variant
   const getButtonClasses = (type: "up" | "down", isSelected: boolean) => {
@@ -107,43 +236,72 @@ export function ChatFeedback({
             <ThumbsDown />
           </Button>
         </div>
-
-        {feedback && showDetailsOption && (
-          <Button
-            variant="link"
-            size="sm"
-            onClick={() => setIsDialogOpen(true)}
-            className="h-6 text-xs gap-1.5"
-          >
-            Add details
-          </Button>
-        )}
       </div>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Feedback</DialogTitle>
+            <DialogTitle>{dialogTitle}</DialogTitle>
           </DialogHeader>
 
           <div className="space-y-4">
-            <p className="text-sm text-muted-foreground">
-              {dialogTitle}
-            </p>
-            <Textarea
-              value={feedbackDetails}
-              onChange={(e) => setFeedbackDetails(e.target.value)}
-              placeholder="Enter your feedback..."
-              className="min-h-32"
-            />
+            <DialogDescription className="bg-background">
+              {dialogDescription}
+            </DialogDescription>
+
+            {showCheckboxOptions && currentCheckboxOptions && currentCheckboxOptions.length > 0 && (
+              <div className="space-y-3">
+                {currentCheckboxOptions.map((option) => (
+                  <div key={option.id} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={option.id}
+                      checked={selectedOptions.includes(option.id)}
+                      onCheckedChange={(checked) =>
+                        handleCheckboxChange(option.id, checked === true)
+                      }
+                    />
+                    <Label
+                      htmlFor={option.id}
+                      className="text-sm font-normal cursor-pointer"
+                    >
+                      {option.label}
+                    </Label>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className="space-y-2">
+              {showCheckboxOptions && (
+                <Label htmlFor="feedback-comment" className="text-sm font-medium">
+                  Additional comments{isCommentRequired && <span className="text-destructive ml-1">*</span>}
+                </Label>
+              )}
+              <Textarea
+                id="feedback-comment"
+                value={feedbackComment}
+                onChange={(e) => setFeedbackComment(e.target.value)}
+                placeholder={placeholder}
+                className="min-h-32"
+                required={isCommentRequired}
+                aria-required={isCommentRequired}
+                aria-describedby={showValidationError ? "feedback-comment-error" : undefined}
+                aria-invalid={showValidationError}
+              />
+              {showValidationError && (
+                <p id="feedback-comment-error" role="alert" className="text-xs text-destructive bg-background">
+                  Please provide additional details when selecting "Other"
+                </p>
+              )}
+            </div>
           </div>
 
           <DialogFooter>
             <Button variant="outline" onClick={handleCancel}>
-              Cancel
+              {cancelText}
             </Button>
             <Button onClick={handleSubmitDetails}>
-              Submit
+              {submitText}
             </Button>
           </DialogFooter>
         </DialogContent>
