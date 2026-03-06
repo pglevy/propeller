@@ -121,9 +121,9 @@ export const DialogWithCustomization: Story = {
   },
 }
 
-// Hidden test stories for coverage (not shown in Storybook UI)
-export const TestDefaultInteraction: Story = {
-  tags: ['test-only', '!dev', '!autodocs'],
+// Test stories with interactions
+export const DefaultInteraction: Story = {
+  tags: ['test-only', '!autodocs'],
   parameters: {
     chromatic: { disableSnapshot: true },
   },
@@ -155,11 +155,11 @@ export const TestDefaultInteraction: Story = {
   },
 }
 
-export const TestAgentEvaluationInteraction: Story = {
+export const AgentEvaluationInteraction: Story = {
   args: {
     variant: "agent-evaluation",
   },
-  tags: ['test-only', '!dev', '!autodocs'],
+  tags: ['test-only', '!autodocs'],
   parameters: {
     chromatic: { disableSnapshot: true },
   },
@@ -198,7 +198,7 @@ export const TestAgentEvaluationInteraction: Story = {
   },
 }
 
-export const TestDialogCustomization: Story = {
+export const DialogCustomizationInteraction: Story = {
   args: {
     variant: "agent-evaluation",
     showDetailsDialog: true,
