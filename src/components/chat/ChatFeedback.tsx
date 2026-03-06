@@ -116,6 +116,7 @@ export function ChatFeedback({
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [feedbackComment, setFeedbackComment] = useState("")
   const [selectedOptions, setSelectedOptions] = useState<string[]>([])
+  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false)
 
   const handleFeedbackClick = (type: "up" | "down") => {
     if (showDetailsDialog) {
@@ -146,7 +147,8 @@ export function ChatFeedback({
       // Check if "other" is selected and comment is required
       const isOtherSelected = selectedOptions.includes("other")
       if (isOtherSelected && !feedbackComment.trim()) {
-        // Don't submit if "other" is selected but no comment provided
+        // Mark that submit was attempted so validation message appears
+        setHasAttemptedSubmit(true)
         return
       }
 
@@ -159,12 +161,14 @@ export function ChatFeedback({
     setIsDialogOpen(false)
     setFeedbackComment("")
     setSelectedOptions([])
+    setHasAttemptedSubmit(false)
   }
 
   const handleCancel = () => {
     setIsDialogOpen(false)
     setFeedbackComment("")
     setSelectedOptions([])
+    setHasAttemptedSubmit(false)
     // Reset feedback when canceling
     setFeedback(null)
   }
@@ -187,6 +191,7 @@ export function ChatFeedback({
   // Check if "other" option is selected
   const isOtherSelected = selectedOptions.includes("other")
   const isCommentRequired = isOtherSelected
+  const showValidationError = hasAttemptedSubmit && isCommentRequired && !feedbackComment.trim()
 
   // Color classes based on variant
   const getButtonClasses = (type: "up" | "down", isSelected: boolean) => {
@@ -280,9 +285,11 @@ export function ChatFeedback({
                 className="min-h-32"
                 required={isCommentRequired}
                 aria-required={isCommentRequired}
+                aria-describedby={showValidationError ? "feedback-comment-error" : undefined}
+                aria-invalid={showValidationError}
               />
-              {isCommentRequired && !feedbackComment.trim() && (
-                <p className="text-xs text-destructive bg-background">
+              {showValidationError && (
+                <p id="feedback-comment-error" role="alert" className="text-xs text-destructive bg-background">
                   Please provide additional details when selecting "Other"
                 </p>
               )}
