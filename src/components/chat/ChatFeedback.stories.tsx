@@ -81,42 +81,6 @@ export const Default: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const body = within(document.body)
-
-    // Click thumbs up to open dialog
-    const thumbsUpButton = canvas.getByLabelText('Helpful')
-    await userEvent.click(thumbsUpButton)
-
-    // Wait for dialog to open (dialog renders in portal at body level)
-    await body.findByRole('dialog')
-
-    // Verify dialog title
-    const dialogTitle = body.getByText('Feedback')
-    await expect(dialogTitle).toBeInTheDocument()
-
-    // Verify positive checkbox options appear
-    const accurateCheckbox = body.getByLabelText('Accurate information')
-    await expect(accurateCheckbox).toBeInTheDocument()
-
-    // Check a checkbox
-    await userEvent.click(accurateCheckbox)
-    await expect(accurateCheckbox).toBeChecked()
-
-    // Type in the comment field
-    const commentField = body.getByPlaceholderText('Enter your feedback...')
-    await userEvent.type(commentField, 'Great response!')
-
-    // Submit the feedback
-    const submitButton = body.getByRole('button', { name: 'Submit' })
-    await userEvent.click(submitButton)
-
-    // Wait for dialog to be removed (animation takes time)
-    await waitFor(() => {
-      expect(body.queryByRole('dialog')).not.toBeInTheDocument()
-    })
-  },
 }
 
 export const AgentEvaluationVariant: Story = {
@@ -129,51 +93,6 @@ export const AgentEvaluationVariant: Story = {
         story: 'Agent evaluation variant: Color-coded feedback with backgrounds. Use for AI response evaluation where visual distinction is important.',
       },
     },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const body = within(document.body)
-
-    // Click thumbs down to test negative feedback
-    const thumbsDownButton = canvas.getByLabelText('Not helpful')
-    await userEvent.click(thumbsDownButton)
-
-    // Wait for dialog (renders in portal at body level)
-    const dialog = await body.findByRole('dialog')
-
-    // Verify negative checkbox options appear
-    const incorrectCheckbox = body.getByLabelText('Incorrect information')
-    await expect(incorrectCheckbox).toBeInTheDocument()
-
-    // Check "Other" to make comment required
-    const otherCheckbox = body.getByLabelText('Other')
-    await userEvent.click(otherCheckbox)
-    await expect(otherCheckbox).toBeChecked()
-
-    // Verify required indicator appears by checking the label text
-    const commentLabel = within(dialog).getByText(/Additional comments/)
-    await expect(commentLabel).toBeInTheDocument()
-    // Verify it contains the required indicator
-    await expect(commentLabel.textContent).toContain('*')
-
-    // Try to submit without comment (should not close)
-    const submitButton = body.getByRole('button', { name: 'Submit' })
-    await userEvent.click(submitButton)
-
-    // Dialog should still be open because comment is required
-    await expect(body.getByRole('dialog')).toBeInTheDocument()
-
-    // Now add a comment
-    const commentField = body.getByPlaceholderText('Enter your feedback...')
-    await userEvent.type(commentField, 'The information was outdated')
-
-    // Submit again
-    await userEvent.click(submitButton)
-
-    // Wait for dialog to be removed (animation takes time)
-    await waitFor(() => {
-      expect(body.queryByRole('dialog')).not.toBeInTheDocument()
-    })
   },
 }
 
@@ -200,26 +119,116 @@ export const DialogWithCustomization: Story = {
       },
     },
   },
+}
+
+// Hidden test stories for coverage (not shown in Storybook UI)
+export const TestDefaultInteraction: Story = {
+  tags: ['test-only', '!dev', '!autodocs'],
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const body = within(document.body)
 
-    // Click thumbs up
     const thumbsUpButton = canvas.getByLabelText('Helpful')
     await userEvent.click(thumbsUpButton)
-
-    // Wait for dialog (renders in portal at body level)
     await body.findByRole('dialog')
 
-    // Verify custom title
+    const dialogTitle = body.getByText('Feedback')
+    await expect(dialogTitle).toBeInTheDocument()
+
+    const accurateCheckbox = body.getByLabelText('Accurate information')
+    await expect(accurateCheckbox).toBeInTheDocument()
+    await userEvent.click(accurateCheckbox)
+    await expect(accurateCheckbox).toBeChecked()
+
+    const commentField = body.getByPlaceholderText('Enter your feedback...')
+    await userEvent.type(commentField, 'Great response!')
+
+    const submitButton = body.getByRole('button', { name: 'Submit' })
+    await userEvent.click(submitButton)
+
+    await waitFor(() => {
+      expect(body.queryByRole('dialog')).not.toBeInTheDocument()
+    })
+  },
+}
+
+export const TestAgentEvaluationInteraction: Story = {
+  args: {
+    variant: "agent-evaluation",
+  },
+  tags: ['test-only', '!dev', '!autodocs'],
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const body = within(document.body)
+
+    const thumbsDownButton = canvas.getByLabelText('Not helpful')
+    await userEvent.click(thumbsDownButton)
+
+    const dialog = await body.findByRole('dialog')
+
+    const incorrectCheckbox = body.getByLabelText('Incorrect information')
+    await expect(incorrectCheckbox).toBeInTheDocument()
+
+    const otherCheckbox = body.getByLabelText('Other')
+    await userEvent.click(otherCheckbox)
+    await expect(otherCheckbox).toBeChecked()
+
+    const commentLabel = within(dialog).getByText(/Additional comments/)
+    await expect(commentLabel).toBeInTheDocument()
+    await expect(commentLabel.textContent).toContain('*')
+
+    const submitButton = body.getByRole('button', { name: 'Submit' })
+    await userEvent.click(submitButton)
+    await expect(body.getByRole('dialog')).toBeInTheDocument()
+
+    const commentField = body.getByPlaceholderText('Enter your feedback...')
+    await userEvent.type(commentField, 'The information was outdated')
+
+    await userEvent.click(submitButton)
+
+    await waitFor(() => {
+      expect(body.queryByRole('dialog')).not.toBeInTheDocument()
+    })
+  },
+}
+
+export const TestDialogCustomization: Story = {
+  args: {
+    variant: "agent-evaluation",
+    showDetailsDialog: true,
+    showCheckboxOptions: true,
+    dialogConfig: {
+      title: "Provide feedback",
+      description: "Help us improve",
+      placeholder: "Please provide additional details...",
+      submitText: "Submit",
+      cancelText: "Cancel",
+    },
+  },
+  tags: ['test-only', '!dev', '!autodocs'],
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const body = within(document.body)
+
+    const thumbsUpButton = canvas.getByLabelText('Helpful')
+    await userEvent.click(thumbsUpButton)
+    await body.findByRole('dialog')
+
     const customTitle = body.getByText('Provide feedback')
     await expect(customTitle).toBeInTheDocument()
 
-    // Verify custom description
     const customDescription = body.getByText('Help us improve')
     await expect(customDescription).toBeInTheDocument()
 
-    // Check multiple checkboxes
     const helpfulCheckbox = body.getByLabelText('Helpful response')
     await userEvent.click(helpfulCheckbox)
     await expect(helpfulCheckbox).toBeChecked()
@@ -228,15 +237,12 @@ export const DialogWithCustomization: Story = {
     await userEvent.click(clearCheckbox)
     await expect(clearCheckbox).toBeChecked()
 
-    // Add comment with custom placeholder
     const commentField = body.getByPlaceholderText('Please provide additional details...')
     await userEvent.type(commentField, 'Excellent explanation')
 
-    // Click custom submit button
     const submitButton = body.getByRole('button', { name: 'Submit' })
     await userEvent.click(submitButton)
 
-    // Wait for dialog to be removed (animation takes time)
     await waitFor(() => {
       expect(body.queryByRole('dialog')).not.toBeInTheDocument()
     })
