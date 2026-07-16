@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> This project has been archived. See [Sailwind](pglevy.github.io/sailwind/) instead.
+
 # Propeller
 
 A modern React component library built for conversational AI interfaces, featuring accessible primitives and domain-specific chat components.
