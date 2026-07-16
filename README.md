@@ -1,5 +1,5 @@
 > [!IMPORTANT]
-> This project has been archived. See [Sailwind](pglevy.github.io/sailwind/) instead.
+> This project has been archived. See [Sailwind](https://pglevy.github.io/sailwind/) instead.
 
 # Propeller
 
